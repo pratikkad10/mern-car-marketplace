@@ -1,11 +1,11 @@
-import { LogOut, User } from 'lucide-react';
+import { LogOut, User, User2 } from 'lucide-react';
 import React, { useState } from 'react';
 import { NavLink } from "react-router-dom";
 // import { AppContext } from '../context/AppContext';
 
 function Navbar() {
 //   const { logout, isLoggedIn } = useContext(AppContext);
-   const [isLoggedIn, setIsLoggedIn] = useState(false);
+   const [isLoggedIn, setIsLoggedIn] = useState(true);
 
   return (
     <div className="flex justify-between px-[1rem] py-[12px] bg-[#F9FAFB] fixed top-0 w-full shadow-sm z-10">
@@ -37,11 +37,12 @@ function Navbar() {
         {isLoggedIn ? (
           <>
             <NavLink
-              to="/user/logout"
+              to="/user/profile"
             //   onClick={() => logout()}
               className="hover:text-red-700  transition-all delay-75"
             >
-             <span className='flex items-center gap-1'> Logout <LogOut/></span> 
+             {/* <span className='flex items-center gap-1'> Logout <LogOut/></span>  */}
+             <User2/>
             </NavLink>
           </>
         ) : (
@@ -50,7 +51,7 @@ function Navbar() {
               to="/user/login"
               className="hover:text-blue-600 px-4 py-1 rounded-full font-[16px]  transition-all delay-75"
             >
-                <span className='flex items-center gap-1'><User/> Sign In</span>
+                <span className='flex items-center gap-1'><User /> Sign In</span>
             </NavLink>
           </>
         )}

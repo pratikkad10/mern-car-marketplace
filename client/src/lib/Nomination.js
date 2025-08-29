@@ -1,18 +1,27 @@
-export const reverseGeocode = async (lat, lon) => {
+export const reverseGeocode = async (lat, lng) => {
   try {
     const res = await fetch(
-      `https://nominatim.openstreetmap.org/reverse?lat=${lat}&lon=${lon}&format=json`
-    );
-    const data = await res.json();
-    console.log(data);
+      `https://nominatim.openstreetmap.org/reverse?lat=${lat}&lon=${lng}&format=json`
+    )
+    const data = await res.json()
 
-    const city = data?.address?.city || data?.address?.town || data?.address?.village;
-    const state = data?.address?.state;
-    const country = data?.address?.country;
+    if (!data.address) return null
 
-    return { city, state, country };
+    // Pick important fields in order
+    const { suburb, town, village, city, state, country } = data.address
+
+    const formattedLocation = [
+      suburb || town || village || "", // Locality
+      city || "",                      // City
+      state || "",                     // State
+      country || ""                    // Country
+    ]
+      .filter(Boolean) // Remove empty ones
+      .join(", ")
+
+    return { formattedLocation, address: data.address }
   } catch (err) {
-    console.error("Reverse geocoding failed", err);
-    return null;
+    console.error("Reverse geocode error:", err)
+    return null
   }
-};
+}

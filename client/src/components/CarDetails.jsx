@@ -3,6 +3,7 @@ import { Button } from './ui/button'
 import { Check, ContactIcon, Heart, LocateIcon,  Share , Mail, Phone, Store } from 'lucide-react'
 import { Badge } from './ui/badge'
 import { Card, CardContent } from './ui/card'
+import CarDashboard from './CarDashboard'
 
 const CarDetails = ({ car }) => {
 
@@ -148,7 +149,7 @@ const CarDetails = ({ car }) => {
                 </Card>
             </div>
 
-
+            <CarDashboard car={car} />
 
         </div>
     )

@@ -11,6 +11,8 @@ import Sellform from './components/Sellform'
 import AboutUs from './pages/About'
 import ContactUs from './pages/Contactus'
 import BuyCar from './components/BuyCar'
+import Profile from './pages/Profile'
+import UserDashboard from './components/UserDashboard'
 
 
 function App() {
@@ -26,10 +28,11 @@ function App() {
           <Route path='/about' element={<AboutUs/>}/>
           <Route path='/contact' element={<ContactUs/>}/>
           <Route path='/cars/buy' element={<BuyCar/>}/>
-          {/* <Route path="/cars/details" element={<CarGallery/>} /> */}
-          {/* <Route path="/cars/details/:id" element={<CarGallery/>} /> */}
+          <Route path='/user/profile' element={<Profile/>}/>
+          <Route path='/user/dashboard' element={<UserDashboard/>}/>
+          
           {/* <Route path="/loader" element={<LoaderCard/>} /> */}
-          {/* <Route path='/user/logout' element={<Login />} /> */}
+       
           <Route path="*" element={<Errorpage/>} />
         </Routes>
       </div>
