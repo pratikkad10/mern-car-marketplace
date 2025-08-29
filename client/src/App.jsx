@@ -1,0 +1,40 @@
+import './index.css'
+import './App.css'
+import { Route, Routes } from 'react-router-dom'
+
+import Signup from './pages/auth/signup'
+import Signin from './pages/auth/signin'
+import Home from './pages/Home'
+import Layout from './layout/Layout'
+import Errorpage from './pages/Errorpage'
+import Sellform from './components/Sellform'
+import AboutUs from './pages/About'
+import ContactUs from './pages/Contactus'
+import BuyCar from './components/BuyCar'
+
+
+function App() {
+  return (
+    <Layout>
+      <div className="container ">
+        <Routes>
+          <Route path='/' element={<Home />} />
+          <Route path='/user/signup' element={<Signup />} />
+          <Route path='/user/login' element={<Signin />} />
+          <Route path="/cars" element={<Home />} />
+          <Route path="/car/sell" element={<Sellform />} />
+          <Route path='/about' element={<AboutUs/>}/>
+          <Route path='/contact' element={<ContactUs/>}/>
+          <Route path='/cars/buy' element={<BuyCar/>}/>
+          {/* <Route path="/cars/details" element={<CarGallery/>} /> */}
+          {/* <Route path="/cars/details/:id" element={<CarGallery/>} /> */}
+          {/* <Route path="/loader" element={<LoaderCard/>} /> */}
+          {/* <Route path='/user/logout' element={<Login />} /> */}
+          <Route path="*" element={<Errorpage/>} />
+        </Routes>
+      </div>
+    </Layout>
+  )
+}
+
+export default App
