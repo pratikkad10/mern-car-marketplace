@@ -1,0 +1,137 @@
+import bcrypt from "bcrypt";
+import jwt from "jsonwebtoken";
+import User from "../models/User.model.js";
+import { signupSchema, loginSchema } from "../validation/User.validation.js";
+
+export const signup = async (req, res) => {
+  try {
+    const { username, fullName, email, password, profilePic, gender, phone, role } =
+      signupSchema.parse(req.body);
+
+    const exists = await User.findOne({ email });
+    if (exists) return res.status(400).json({ error: "User already exists" });
+
+    const existsUsername = await User.findOne({ username });
+    if (existsUsername)
+      return res.status(400).json({ error: "Username already taken" });
+
+    const hashed = await bcrypt.hash(password, 10);
+
+    const user = await User.create({
+      username,
+      fullName,
+      email,
+      password: hashed,
+      profilePic: profilePic || "",
+      gender,
+      phone,
+      role: role || "Both",
+    });
+
+    res.status(201).json({
+      message: "User registered successfully",
+      user: {
+        id: user._id,
+        username: user.username,
+        fullName: user.fullName,
+        email: user.email,
+        profilePic: user.profilePic,
+        gender: user.gender,
+        phone: user.phone,
+        role
+      },
+    });
+  } catch (err) {
+    if (err.errors) {
+      return res.status(400).json({ error: err.errors });
+    }
+    res.status(400).json({ error: err.message });
+  }
+};
+
+export const login = async (req, res) => {
+  try {
+    const { email, password } = loginSchema.parse(req.body);
+
+    const user = await User.findOne({ email });
+    if (!user) return res.status(400).json({ error: "Invalid credentials" });
+
+    const match = await bcrypt.compare(password, user.password);
+    if (!match) return res.status(400).json({ error: "Invalid credentials" });
+
+    const token = jwt.sign(
+      { id: user._id, email: user.email },
+      process.env.JWT_SECRET,
+      { expiresIn: "1h" }
+    );
+
+    res.cookie("token", token, {
+      httpOnly: true, 
+      secure: process.env.NODE_ENV === "production", 
+      sameSite: "strict",
+      maxAge: 24 * 60 * 60 * 1000 // 1 day
+    });
+
+    res.json({
+      token,
+      user: {
+        id: user._id,
+        username: user.username,
+        fullName: user.fullName,
+        email: user.email,
+        profilePic: user.profilePic,
+        gender: user.gender,
+        phone: user.phone,
+      },
+    });
+  } catch (err) {
+    if (err.errors) {
+      return res.status(400).json({ error: err.errors });
+    }
+    res.status(400).json({ error: err.message });
+  }
+};
+
+
+export const getProfile = async (req, res) => {
+  try {
+    const user = await User.findById(req.user._id).select("-password");
+
+    if (!user) {
+      return res.status(404).json({ success: false, error: "User not found" });
+    }
+
+    res.status(200).json({
+      success: true,
+      user: {
+        id: user._id,
+        fullName: user.fullName,
+        username: user.username,
+        email: user.email,
+        phone: user.phone,
+        gender: user.gender,
+        role: user.role,
+      },
+    });
+  } catch (error) {
+    console.error("Error fetching profile:", error);
+    res.status(500).json({ success: false, error: "Server error" });
+  }
+};
+
+
+export const logoutUser = (req, res) => {
+  try {
+    res.clearCookie("token", {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === "production",
+      sameSite: "strict",
+      path: "/"
+    });
+    res.status(200).json({ success: true, message: "Logged out successfully" });
+  } catch (error) {
+    console.error("Logout error:", error);
+    res.status(500).json({ success: false, error: "Server error" });
+  }
+};
+
