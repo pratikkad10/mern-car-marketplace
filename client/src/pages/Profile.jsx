@@ -1,11 +1,30 @@
-import React from "react"
+import React, { useState } from "react"
 import { Card, CardHeader, CardContent } from "../components/ui/card"
 import { Button } from "../components/ui/button"
 import { Badge } from "../components/ui/badge"
-import { Globe, Users, Calendar, Car, Camera } from "lucide-react"
+import { Globe, Users, Calendar, Car, Camera, CheckCircle2Icon, AlertCircleIcon } from "lucide-react"
 import { useNavigate } from "react-router-dom"
+import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from "../components/ui/dialog"
+import AlertMessage from "../components/ui/AlertMessage"
 
 const Profile = () => {
+
+    const [oldPassword, setOldPassword] = useState("");
+    const [newPassword, setNewPassword] = useState("");
+    const [confirmPassword, setConfirmPassword] = useState("");
+    const [status, setStatus] = useState(null)
+
+
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        if (newPassword !== confirmPassword) {
+            setStatus("error")
+            return;
+        }
+        // alert("Password changed successfully!");
+        setStatus("success")
+    };
+
     const user = {
         id: 1,
         name: "Pratik Kad",
@@ -22,7 +41,7 @@ const Profile = () => {
         ],
     }
     const navigate = useNavigate()
-    const dashboardbtnhandler = ()=>{
+    const dashboardbtnhandler = () => {
         navigate("/user/dashboard")
     }
 
@@ -77,16 +96,97 @@ const Profile = () => {
                     {/* Actions */}
                     <div className="flex flex-col gap-2">
                         <div className="flex gap-3 mt-4 md:mt-0">
-                        <Button variant="outline">Change Password</Button>
-                        <Button variant="destructive">Logout</Button>
+                            <Dialog>
+                                <DialogTrigger asChild><Button variant="outline">Change Password</Button></DialogTrigger>
+                                <DialogContent>
+                                    <DialogHeader>
+                                        <DialogTitle>Change Password</DialogTitle>
+                                        {/* Instead of DialogDescription */}
+                                        <div>
+                                            <div className="bg-white p-6 rounded-2xl shadow-md w-96">
+
+                                                {/* Alerts */}
+                                                <AlertMessage
+                                                    type={status}
+                                                    title={
+                                                        status === "success"
+                                                            ? "Password Changed Successfully"
+                                                            : status === "error"
+                                                                ? "Error Changing Password"
+                                                                : ""
+                                                    }
+                                                    description={
+                                                        status === "success"
+                                                            ? "Your new password has been saved."
+                                                            : status === "error"
+                                                                ? "New passwords do not match. Please try again."
+                                                                : ""
+                                                    }
+                                                />
+
+
+                                                {/* Form */}
+                                                <form onSubmit={handleSubmit} className="space-y-4">
+                                                    {/* Old Password */}
+                                                    <div>
+                                                        <label className="block text-sm font-medium mb-1">Old Password</label>
+                                                        <input
+                                                            type="password"
+                                                            value={oldPassword}
+                                                            onChange={(e) => setOldPassword(e.target.value)}
+                                                            className="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                                                            required
+                                                        />
+                                                    </div>
+
+                                                    {/* New Password */}
+                                                    <div>
+                                                        <label className="block text-sm font-medium mb-1">New Password</label>
+                                                        <input
+                                                            type="password"
+                                                            value={newPassword}
+                                                            onChange={(e) => setNewPassword(e.target.value)}
+                                                            className="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                                                            required
+                                                        />
+                                                    </div>
+
+                                                    {/* Confirm Password */}
+                                                    <div>
+                                                        <label className="block text-sm font-medium mb-1">Re-enter Password</label>
+                                                        <input
+                                                            type="password"
+                                                            value={confirmPassword}
+                                                            onChange={(e) => setConfirmPassword(e.target.value)}
+                                                            className="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                                                            required
+                                                        />
+                                                    </div>
+
+                                                    {/* Submit Button */}
+                                                    <button
+                                                        type="submit"
+                                                        className="w-full bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700 transition"
+                                                    >
+                                                        Change Password
+                                                    </button>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </DialogHeader>
+                                </DialogContent>
+
+                            </Dialog>
+
+                            <Button variant="destructive">Logout</Button>
+                        </div>
+                        <div className="w-full">
+                            <Button
+                                onClick={dashboardbtnhandler}
+                                className="w-full bg-blue-400 hover:bg-blue-500 text-white hover:text-white" variant="outline">Dashboard</Button>
+                        </div>
                     </div>
-                    <div className="w-full">
-                        <Button 
-                        onClick={dashboardbtnhandler}
-                        className="w-full bg-blue-400 hover:bg-blue-500 text-white hover:text-white" variant="outline">Dashboard</Button>
-                    </div>
-                    </div>
-                    
+
                 </CardHeader>
 
                 <CardContent className="px-6 pb-6">
@@ -117,6 +217,8 @@ const Profile = () => {
                     </div>
                 </CardContent>
             </Card>
+
+
         </div>
     )
 }
