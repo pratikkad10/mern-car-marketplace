@@ -1,4 +1,4 @@
-import React, { useState } from "react"
+import React, { useContext, useState } from "react"
 import { Card, CardHeader, CardContent } from "../components/ui/card"
 import { Button } from "../components/ui/button"
 import { Badge } from "../components/ui/badge"
@@ -6,6 +6,7 @@ import { Globe, Users, Calendar, Car, Camera, CheckCircle2Icon, AlertCircleIcon 
 import { useNavigate } from "react-router-dom"
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from "../components/ui/dialog"
 import AlertMessage from "../components/ui/AlertMessage"
+import { AuthContext } from "../context/AuthContext"
 
 const Profile = () => {
 
@@ -13,6 +14,8 @@ const Profile = () => {
     const [newPassword, setNewPassword] = useState("");
     const [confirmPassword, setConfirmPassword] = useState("");
     const [status, setStatus] = useState(null)
+    const {logout } = useContext(AuthContext);
+    const navigate = useNavigate()
 
 
     const handleSubmit = (e) => {
@@ -40,9 +43,13 @@ const Profile = () => {
             { id: 3, title: "Maruti Swift 2019", price: "6,50,000", image: "/car3.jpg" },
         ],
     }
-    const navigate = useNavigate()
     const dashboardbtnhandler = () => {
         navigate("/user/dashboard")
+    }
+
+    const logoutHandler=()=>{
+        logout
+        navigate("/user/login")
     }
 
     const handleProfilePicUpload = (event) => {
@@ -178,7 +185,7 @@ const Profile = () => {
 
                             </Dialog>
 
-                            <Button variant="destructive">Logout</Button>
+                            <Button onClick={logoutHandler} variant="destructive">Logout</Button>
                         </div>
                         <div className="w-full">
                             <Button
