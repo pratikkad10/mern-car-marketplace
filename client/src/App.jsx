@@ -13,27 +13,32 @@ import ContactUs from './pages/Contactus'
 import BuyCar from './components/BuyCar'
 import Profile from './pages/Profile'
 import UserDashboard from './components/UserDashboard'
-
+import ProtectedRoute from './components/ProtectedRoute'  
+import { ToastContainer } from 'react-toastify'
 
 function App() {
   return (
     <Layout>
+      <ToastContainer />
       <div className="container ">
         <Routes>
           <Route path='/' element={<Home />} />
           <Route path='/user/signup' element={<Signup />} />
           <Route path='/user/login' element={<Signin />} />
           <Route path="/cars" element={<Home />} />
-          <Route path="/car/sell" element={<Sellform />} />
-          <Route path='/about' element={<AboutUs/>}/>
-          <Route path='/contact' element={<ContactUs/>}/>
-          <Route path='/cars/buy' element={<BuyCar/>}/>
-          <Route path='/user/profile' element={<Profile/>}/>
-          <Route path='/user/dashboard' element={<UserDashboard/>}/>
+
+          <Route element={<ProtectedRoute />}>
+            <Route path="/car/sell" element={<Sellform />} />
+            <Route path='/user/profile' element={<Profile />} />
+            <Route path='/user/dashboard' element={<UserDashboard />} />
+            <Route path='/cars/buy' element={<BuyCar />} />
+          </Route>
+
+          <Route path='/about' element={<AboutUs />} />
+          <Route path='/contact' element={<ContactUs />} />
           
-          {/* <Route path="/loader" element={<LoaderCard/>} /> */}
-       
-          <Route path="*" element={<Errorpage/>} />
+
+          <Route path="*" element={<Errorpage />} />
         </Routes>
       </div>
     </Layout>
