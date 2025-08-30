@@ -13,6 +13,10 @@ import {
 import { Button } from "../../components/ui/button"
 import { Input } from "../../components/ui/input"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "../../components/ui/select"
+import { toast } from "react-toastify"
+import { useNavigate } from "react-router-dom"
+import useLoading from "../../hooks/useLoading"
+import { signupUser } from "../../services/api"
 
 // ✅ Schema
 const signupSchema = z.object({
@@ -20,8 +24,8 @@ const signupSchema = z.object({
   username: z.string().min(2, "Username must be at least 2 characters."),
   email: z.string().email("Enter a valid email."),
   phone: z.string().min(10, "Phone number must be valid."),
-  gender: z.enum(["male", "female", "other"], { required_error: "Select gender" }),
-  role: z.enum(["buyer", "seller", "both"], { required_error: "Select role" }),
+  gender: z.enum(["Male", "Female", "Other"], { required_error: "Select gender" }),
+  role: z.enum(["Buyer", "Seller", "Both"], { required_error: "Select role" }),
   password: z.string().min(6, "Password must be at least 6 characters."),
   confirmPassword: z.string().min(6, "Confirm your password."),
 }).refine((data) => data.password === data.confirmPassword, {
@@ -30,6 +34,10 @@ const signupSchema = z.object({
 })
 
 export default function Signup() {
+
+  const navigate = useNavigate()
+  const { start, stop } = useLoading()
+
   const form = useForm({
     resolver: zodResolver(signupSchema),
     defaultValues: {
@@ -44,9 +52,31 @@ export default function Signup() {
     },
   })
 
-  function onSubmit(values) {
-    console.log("Signup:", values)
+
+  async function onSubmit(values) {
+    start(); 
+    try {
+      const res = await signupUser({
+        username: values.username,
+        fullName: values.fullName,
+        email: values.email,
+        password: values.password,
+        gender: values.gender,
+        phone: values.phone,
+      });
+
+      console.log("Signup success:", res.data);
+      toast.success(`Account created! Welcome, ${res.data.user.fullName}`);
+
+      navigate("/user/login");
+    } catch (err) {
+      console.error(err);
+      toast.error(err.response?.data?.error || "Signup failed");
+    } finally {
+      stop(); 
+    }
   }
+
 
   return (
     <div className="flex items-center justify-center min-h-screen bg-gray-50 ">
@@ -129,9 +159,9 @@ export default function Signup() {
                         <SelectValue placeholder="Select gender" />
                       </SelectTrigger>
                       <SelectContent>
-                        <SelectItem value="male">Male</SelectItem>
-                        <SelectItem value="female">Female</SelectItem>
-                        <SelectItem value="other">Other</SelectItem>
+                        <SelectItem value="Male">Male</SelectItem>
+                        <SelectItem value="Female">Female</SelectItem>
+                        <SelectItem value="Other">Other</SelectItem>
                       </SelectContent>
                     </Select>
                   </FormControl>
@@ -153,9 +183,9 @@ export default function Signup() {
                         <SelectValue placeholder="I am a..." />
                       </SelectTrigger>
                       <SelectContent>
-                        <SelectItem value="buyer">Buyer</SelectItem>
-                        <SelectItem value="seller">Seller</SelectItem>
-                        <SelectItem value="both">Both</SelectItem>
+                        <SelectItem value="Buyer">Buyer</SelectItem>
+                        <SelectItem value="Seller">Seller</SelectItem>
+                        <SelectItem value="Both">Both</SelectItem>
                       </SelectContent>
                     </Select>
                   </FormControl>
@@ -201,9 +231,13 @@ export default function Signup() {
         {/* Already have account */}
         <p className="mt-4 text-center text-sm text-gray-600">
           Already have an account?{" "}
-          <a href="/signin" className="text-blue-600 hover:underline">
-            Login
-          </a>
+          <button
+            type="button"
+            onClick={() => navigate("/user/login")}
+            className="text-blue-600 hover:underline"
+          >
+            Sign in
+          </button>
         </p>
       </div>
     </div>
