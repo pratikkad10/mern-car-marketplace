@@ -1,9 +1,9 @@
-import { useForm } from "react-hook-form"
-import { zodResolver } from "@hookform/resolvers/zod"
-import * as z from "zod"
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import * as z from "zod";
 
-import { Button } from "../../components/ui/button"
-import { Input } from "../../components/ui/input"
+import { Button } from "../../components/ui/button";
+import { Input } from "../../components/ui/input";
 import {
   Form,
   FormField,
@@ -11,30 +11,57 @@ import {
   FormLabel,
   FormControl,
   FormMessage,
-} from "../../components/ui/form"
+} from "../../components/ui/form";
+
+import { loginUser } from "../../services/api";
+import useLoading from "../../hooks/useLoading";
+import { toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";
 
 const formSchema = z.object({
   username: z.string().min(2, "Username must be at least 2 characters."),
   password: z.string().min(6, "Password must be at least 6 characters."),
-})
+});
 
 export default function Signin() {
+  const navigate = useNavigate();
+  const { start, stop } = useLoading();
+
   const form = useForm({
     resolver: zodResolver(formSchema),
     defaultValues: {
       username: "",
       password: "",
     },
-  })
+  });
 
-  function onSubmit(values) {
-    console.log(values)
+  async function onSubmit(values) {
+    start();
+    try {
+      const res = await loginUser({
+        email: values.username,
+        password: values.password,
+      });
+
+      console.log("Login success:", res.data);
+      toast.success(`Welcome, ${res.data.user.fullName}`);
+      const token = res.data.token;
+      localStorage.setItem("token", token)
+      
+      navigate("/user/dashboard");
+    } catch (err) {
+      console.error(err);
+      toast.error(err.response?.data?.message || "Login failed");
+    } finally {
+      stop();
+    }
   }
 
   return (
     <div className="flex items-center justify-center min-h-screen bg-gray-50">
       <div className="w-full max-w-sm p-6 rounded-2xl shadow-md border bg-white">
         <h2 className="text-2xl font-semibold mb-6 text-center">Login</h2>
+
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-5">
             <FormField
@@ -63,18 +90,24 @@ export default function Signin() {
                 </FormItem>
               )}
             />
-            <Button type="submit" className="w-full">Login</Button>
+            <Button type="submit" className="w-full">
+              Login
+            </Button>
           </form>
         </Form>
 
-        {/* Sign up link */}
+        {/* Sign up link using navigate */}
         <p className="mt-4 text-center text-sm text-gray-600">
           Don’t have an account?{" "}
-          <a href="/user/signup" className="text-blue-600 hover:underline">
+          <button
+            type="button"
+            onClick={() => navigate("/user/signup")}
+            className="text-blue-600 hover:underline"
+          >
             Sign up
-          </a>
+          </button>
         </p>
       </div>
     </div>
-  )
+  );
 }
