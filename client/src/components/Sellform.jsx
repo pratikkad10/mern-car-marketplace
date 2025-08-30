@@ -1,4 +1,4 @@
-import { useState } from "react"
+import { useContext, useState } from "react"
 import {
   ArrowLeft, BatteryCharging, CarFront, CarFrontIcon,
   FuelIcon, Image, LucideTruckElectric, Settings, Upload, Trash2, Info
@@ -16,8 +16,17 @@ import LocationPicker from './Locationpicker'
 import { reverseGeocode } from '../lib/Nomination'
 import { Separator } from './ui/separator'
 import { Button } from './ui/button'
+import { AuthContext } from "../context/AuthContext"
+import { useNavigate } from "react-router-dom"
 
 const Sellform = () => {
+
+    const { user, isLoggedIn, logout } = useContext(AuthContext);
+    const navigate = useNavigate()
+    if(!isLoggedIn){
+        navigate("/user/login")
+    }
+
   const [formData, setFormData] = useState({
     carName: "",
     brand: "",
@@ -78,6 +87,8 @@ const Sellform = () => {
     console.log("🚗 Final Car Object:", formData)
     alert("Car object created! Check console.")
   }
+
+
 
   return (
     <div className='min-h-screen bg-zinc-100 p-6'>
