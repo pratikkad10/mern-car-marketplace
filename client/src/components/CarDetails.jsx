@@ -11,7 +11,7 @@ const CarDetails = ({ car }) => {
         <div>
 
             <div >
-                <img className='rounded-md' src={car.image} alt="carimage" />
+                <img className='rounded-md' src={car.images[0]} alt="carimage" />
             </div>
 
             <div className='mt-4 flex justify-between'>
@@ -64,8 +64,8 @@ const CarDetails = ({ car }) => {
                         </Badge>
 
                         <Badge variant="outline" className="flex flex-col items-start p-3 w-full bg-muted/40">
-                            <p className="text-xs text-gray-500">Engine</p>
-                            <p className="font-medium">3.0L Turbo</p>
+                            <p className="text-xs text-gray-500">Car Type</p>
+                            <p className="font-medium">{car.carType}</p>
                         </Badge>
 
                         <Badge variant="outline" className="flex flex-col items-start p-3 w-full bg-muted/40">
@@ -109,6 +109,8 @@ const CarDetails = ({ car }) => {
                 </Badge>
             </div>
 
+            <CarDashboard car={car} />
+
             <div className="mt-6">
                 <h3 className="font-semibold mb-3">Seller Information</h3>
 
@@ -120,8 +122,8 @@ const CarDetails = ({ car }) => {
                                 <Store className="w-6 h-6 text-gray-600" />
                             </div>
                             <div className="ml-4">
-                                <h4 className="font-semibold">BMW Excellence Motorrad</h4>
-                                <p className="text-sm text-gray-500">Premium BMW Dealer</p>
+                                <h4 className="font-semibold">{car.seller.fullName}</h4>
+                                <p className="text-sm text-gray-500">{car.seller.email}</p>
                             </div>
                         </div>
 
@@ -129,11 +131,11 @@ const CarDetails = ({ car }) => {
                         <div className="flex flex-col sm:flex-row sm:items-center sm:space-x-6 text-sm text-gray-600 mb-4">
                             <div className="flex items-center mb-2 sm:mb-0">
                                 <Phone className="w-4 h-4 mr-2" />
-                                <span>+91 80 4567 8900</span>
+                                <span>{car.seller.phone}</span>
                             </div>
                             <div className="flex items-center">
                                 <Mail className="w-4 h-4 mr-2" />
-                                <span>contact@bmwexcellence.com</span>
+                                <span>{car.seller.email}</span>
                             </div>
                         </div>
 
@@ -149,7 +151,7 @@ const CarDetails = ({ car }) => {
                 </Card>
             </div>
 
-            <CarDashboard car={car} />
+            
 
         </div>
     )
