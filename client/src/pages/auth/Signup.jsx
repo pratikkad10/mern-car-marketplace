@@ -15,10 +15,10 @@ import { Input } from "../../components/ui/input"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "../../components/ui/select"
 import { toast } from "react-toastify"
 import { useNavigate } from "react-router-dom"
-import useLoading from "../../hooks/useLoading"
 import { signupUser } from "../../services/api"
+import { useContext } from "react"
+import { AuthContext } from "../../context/AuthContext"
 
-// ✅ Schema
 const signupSchema = z.object({
   fullName: z.string().min(2, "Full name is required."),
   username: z.string().min(2, "Username must be at least 2 characters."),
@@ -36,7 +36,8 @@ const signupSchema = z.object({
 export default function Signup() {
 
   const navigate = useNavigate()
-  const { start, stop } = useLoading()
+  // const { start, stop } = useLoading()
+  const { loading, setLoading } = useContext(AuthContext);
 
   const form = useForm({
     resolver: zodResolver(signupSchema),
@@ -54,7 +55,7 @@ export default function Signup() {
 
 
   async function onSubmit(values) {
-    start(); 
+    setLoading(true) 
     try {
       const res = await signupUser({
         username: values.username,
@@ -73,7 +74,7 @@ export default function Signup() {
       console.error(err);
       toast.error(err.response?.data?.error || "Signup failed");
     } finally {
-      stop(); 
+      setLoading(false)
     }
   }
 
@@ -224,7 +225,7 @@ export default function Signup() {
               )}
             />
 
-            <Button type="submit" className="w-full">Sign Up</Button>
+            <Button type="submit" className="w-full">{loading? "Loading...":"Sign Up"}</Button>
           </form>
         </Form>
 
@@ -236,7 +237,7 @@ export default function Signup() {
             onClick={() => navigate("/user/login")}
             className="text-blue-600 hover:underline"
           >
-            Sign in
+           { "Sign in" }
           </button>
         </p>
       </div>
