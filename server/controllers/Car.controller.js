@@ -5,7 +5,7 @@ import uploadToCloudinary from "../utils/uploadToCloudinary.js";
 
 export const getCars = async (req, res) => {
     try {
-        const cars = await CarModel.find()
+        const cars = await CarModel.find().populate("seller", "-password")
         res.status(200).json({
             success: true,
             cars: cars
