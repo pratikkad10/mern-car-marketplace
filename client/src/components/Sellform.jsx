@@ -1,7 +1,7 @@
 import { useContext, useState } from "react"
 import {
-  ArrowLeft, BatteryCharging, CarFront, CarFrontIcon,
-  FuelIcon, Image, LucideTruckElectric, Settings, Upload, Trash2, Info
+  ArrowLeft, CarFront, CarFrontIcon,
+  FuelIcon, Settings
 } from 'lucide-react'
 import React from 'react'
 import { Input } from './ui/input'
@@ -18,14 +18,13 @@ import { Separator } from './ui/separator'
 import { Button } from './ui/button'
 import { AuthContext } from "../context/AuthContext"
 import { useNavigate } from "react-router-dom"
+import { CarContext } from "../context/CarContext"
 
 const Sellform = () => {
-
-    const { user, isLoggedIn, logout } = useContext(AuthContext);
-    const navigate = useNavigate()
-    if(!isLoggedIn){
-        navigate("/user/login")
-    }
+  const { createCar } = useContext(CarContext)
+  const { isLoggedIn } = useContext(AuthContext)
+  const navigate = useNavigate()
+  if (!isLoggedIn) navigate("/user/login")
 
   const [formData, setFormData] = useState({
     carName: "",
@@ -39,27 +38,26 @@ const Sellform = () => {
     fuelType: "",
     transmission: "",
     features: [],
-    images: [],
+    images: [],   // actual File objects
     description: "",
     location: "",
     phone: "",
     email: ""
   })
 
- const handleLocationSelect = async (coords) => {
-  const locationData = await reverseGeocode(coords.lat, coords.lng)
-  if (locationData) {
-    setFormData((prev) => ({
-      ...prev,
-      location: locationData.formattedLocation,  // "Baner, Pune, Maharashtra, India"
-      address: locationData.address              // structured object for later
-    }))
+  const [previewImages, setPreviewImages] = useState([]) // for showing image previews
+
+  const handleLocationSelect = async (coords) => {
+    const locationData = await reverseGeocode(coords.lat, coords.lng)
+    if (locationData) {
+      setFormData((prev) => ({
+        ...prev,
+        location: locationData.formattedLocation,
+        address: locationData.address
+      }))
+    }
   }
-}
 
-
-
-  // Handle checkbox for features
   const toggleFeature = (feature) => {
     setFormData((prev) => {
       const exists = prev.features.includes(feature)
@@ -72,28 +70,54 @@ const Sellform = () => {
     })
   }
 
-  // Handle file upload
+  // Handle file upload + preview
   const handleFileChange = (e) => {
     const files = Array.from(e.target.files)
+
+    // store actual files
     setFormData((prev) => ({
       ...prev,
-      images: [...prev.images, ...files.map((f) => URL.createObjectURL(f))]
+      images: [...prev.images, ...files]
     }))
+
+    // store preview URLs
+    const newPreviews = files.map((file) => URL.createObjectURL(file))
+    setPreviewImages((prev) => [...prev, ...newPreviews])
+  }
+
+  // Optional: Remove selected image
+  const removeImage = (index) => {
+    setFormData((prev) => ({
+      ...prev,
+      images: prev.images.filter((_, i) => i !== index)
+    }))
+    setPreviewImages((prev) => prev.filter((_, i) => i !== index))
   }
 
   // Handle submit
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault()
-    console.log("🚗 Final Car Object:", formData)
-    alert("Car object created! Check console.")
+
+    const formDataToSend = new FormData()
+
+    Object.keys(formData).forEach((key) => {
+      if (key === "features" || key === "address") {
+        formDataToSend.append(key, JSON.stringify(formData[key]))
+      } else if (key !== "images") {
+        formDataToSend.append(key, formData[key])
+      }
+    })
+
+    // append actual image files
+    formData.images.forEach((file) => formDataToSend.append("images", file))
+
+    createCar(formDataToSend)
   }
-
-
 
   return (
     <div className='min-h-screen bg-zinc-100 p-6'>
       <form onSubmit={handleSubmit}>
-        {/* ------------ HEADER ------------ */}
+        {/* HEADER */}
         <div className='flex items-center gap-4'>
           <div><ArrowLeft /></div>
           <div>
@@ -103,13 +127,14 @@ const Sellform = () => {
         </div>
 
         <div className='bg-white p-6 rounded-xl mt-10'>
-          {/* ------------ BASIC INFO ------------ */}
+          {/* BASIC INFO */}
           <div className='flex items-center gap-2'>
             <CarFront className='bg-blue-500 p-1 h-8 w-8  rounded-full text-white' />
             <span className='text-lg font-semibold text-zinc-950/85'>Basic Information</span>
           </div>
 
           <div className='mt-6 flex flex-col gap-4'>
+            {/* Car Name */}
             <div>
               <p className='text-sm py-2'>Car Name</p>
               <Input
@@ -121,7 +146,7 @@ const Sellform = () => {
             </div>
 
             {/* Brand + Model */}
-            <div className='flex w-full justify-between '>
+            <div className='flex w-full justify-between'>
               <div className='w-[48%]'>
                 <p className='text-sm py-2'>Brand</p>
                 <DropdownMenu>
@@ -194,12 +219,13 @@ const Sellform = () => {
               </RadioGroup>
             </div>
 
-            {/* ------------ TECHNICAL DETAILS ------------ */}
+            {/* TECHNICAL DETAILS */}
             <div className='flex items-center gap-2 mt-8'>
               <Settings className='bg-blue-500 p-1 h-8 w-8 rounded-full text-white' />
               <span className='text-lg font-semibold text-zinc-950/85'>Technical Details</span>
             </div>
 
+            {/* Price + Mileage */}
             <div className='w-full flex justify-between'>
               <div className='w-[48%]'>
                 <p className='text-sm py-2'>Price (₹)</p>
@@ -282,9 +308,16 @@ const Sellform = () => {
             <div className="space-y-4 mt-6">
               <Label className="text-sm mb-1">Images</Label>
               <Input type="file" multiple accept="image/*" onChange={handleFileChange} />
-              <div className="flex gap-2 flex-wrap">
-                {formData.images.map((img, idx) => (
-                  <img key={idx} src={img} alt="preview" className="w-24 h-24 object-cover rounded" />
+              <div className="flex gap-2 flex-wrap mt-2">
+                {previewImages.map((img, idx) => (
+                  <div key={idx} className="relative">
+                    <img src={img} alt="preview" className="w-24 h-24 object-cover rounded" />
+                    <button
+                      type="button"
+                      onClick={() => removeImage(idx)}
+                      className="absolute top-0 right-0 bg-red-500 text-white rounded-full w-5 h-5 flex items-center justify-center text-xs"
+                    >X</button>
+                  </div>
                 ))}
               </div>
             </div>
