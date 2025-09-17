@@ -19,7 +19,7 @@ const CarDashboard = ({ car }) => {
   ]
 
   return (
-    <div className="p-6 space-y-6">
+    <div className=" mt-4 space-y-6">
       {/* Price Comparison */}
       <Card>
         <CardHeader>Price Comparison</CardHeader>
@@ -51,7 +51,7 @@ const CarDashboard = ({ car }) => {
       </Card>
 
       {/* Performance */}
-      <Card>
+      {/* <Card>
         <CardHeader>Performance Stats</CardHeader>
         <CardContent className="grid grid-cols-2 gap-4">
           <div className="p-4 bg-gray-100 rounded-xl text-center">
@@ -71,7 +71,7 @@ const CarDashboard = ({ car }) => {
             <p className="text-xl font-bold">{car.acceleration || "7.5"} sec</p>
           </div>
         </CardContent>
-      </Card>
+      </Card> */}
     </div>
   )
 }
