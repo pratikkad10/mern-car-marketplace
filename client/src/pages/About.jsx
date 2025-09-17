@@ -137,7 +137,7 @@ const AboutUs = () => {
       </section>
 
       {/* Stats Section */}
-      <section className="py-16 bg-primary text-white">
+      <section className="py-16 bg-zinc-100 text-primary">
         <div className="container mx-auto px-4">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
             <div>
@@ -160,7 +160,6 @@ const AboutUs = () => {
         </div>
       </section>
 
-      {/* Footer (same as your main page) */}
     </div>
   );
 };
