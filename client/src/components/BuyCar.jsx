@@ -1,4 +1,4 @@
-import React, { useState } from "react"
+import React, { useContext, useEffect, useState } from "react"
 import { Card, CardHeader, CardTitle, CardContent } from "./ui/card"
 import { Button } from "./ui/button"
 import { Input } from "./ui/input"
@@ -10,17 +10,19 @@ import {
   SelectValue,
 } from "./ui/select"
 import Car from "./Car"
-import { testCar } from "../lib/cardata"
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "./ui/dialog"
 import CarDetails from "./CarDetails"
 import { filterCars } from "../utils/filtercars"
+import { CarContext } from "../context/CarContext"
+import { RefreshCw } from "lucide-react"
+import { useSpin } from "../hooks/useSpin"
 
 const BuyCar = () => {
-
-    const [cars, setCars] = useState([testCar])
-
-    const [open, setOpen] = useState(false);
-    const [selectedCar, setSelectedCar] = useState(null);
+  const { cars, getCars } = useContext(CarContext);
+  const { spinning, spin } = useSpin(1000);
+  const [filteredCars, setFilteredCars] = useState(cars);
+  const [open, setOpen] = useState(false);
+  const [selectedCar, setSelectedCar] = useState(null);
 
   const [filters, setFilters] = useState({
     type: "All Types",
@@ -28,17 +30,30 @@ const BuyCar = () => {
     minPrice: "",
     maxPrice: "",
     transmission: "All Transmissions",
-  })
+  });
+
+  useEffect(() => {
+    setFilteredCars(cars);
+  }, [cars]);
 
   const handleFilterChange = (field, value) => {
-    setFilters(prev => ({ ...prev, [field]: value }))
-  }
+    setFilters(prev => ({ ...prev, [field]: value }));
+  };
 
   const applyFilters = () => {
-    console.log("Applied Filters:", filters)
-    // call filterCars(cars, filters) here
-    filterCars(cars, filters)
-  }
+    // console.log("Applied Filters:", filters);
+    const filtered = filterCars(cars, filters);
+    setFilteredCars(filtered);
+  };
+
+
+  const handleRefresh = () => {
+    spin(true);
+
+    getCars()
+
+    spin(false)
+  };
 
   return (
     <div className="p-4">
@@ -46,9 +61,8 @@ const BuyCar = () => {
         <CardHeader>
           <CardTitle>Find Your Next Vehicle</CardTitle>
         </CardHeader>
-        <CardContent className="bg-muted/80 rounded-md mx-8  py-10 grid grid-cols-1 md:grid-cols-5 gap-4 items-end">
-          
-          {/* Car Type */}
+        <CardContent className="bg-muted/80 rounded-md mx-8 py-10 grid grid-cols-1 md:grid-cols-5 gap-4 items-end">
+
           <Select
             value={filters.type}
             onValueChange={(val) => handleFilterChange("type", val)}
@@ -64,12 +78,11 @@ const BuyCar = () => {
             </SelectContent>
           </Select>
 
-          {/* Fuel Type */}
           <Select
             value={filters.fuel}
             onValueChange={(val) => handleFilterChange("fuel", val)}
           >
-            <SelectTrigger  className="w-[100%]">
+            <SelectTrigger className="w-[100%]">
               <SelectValue placeholder="Fuel Type" />
             </SelectTrigger>
             <SelectContent>
@@ -100,7 +113,7 @@ const BuyCar = () => {
             value={filters.transmission}
             onValueChange={(val) => handleFilterChange("transmission", val)}
           >
-            <SelectTrigger  className="w-[100%]">
+            <SelectTrigger className="w-[100%]">
               <SelectValue placeholder="Transmission" />
             </SelectTrigger>
             <SelectContent>
@@ -110,45 +123,54 @@ const BuyCar = () => {
             </SelectContent>
           </Select>
 
-          <Button variant="secondary" className="bg-blue-500 text-white hover:text-zinc-900" onClick={applyFilters}>Apply Filters</Button>
+          <Button
+            variant="secondary"
+            className="bg-blue-500 text-white hover:text-zinc-900"
+            onClick={applyFilters}
+          >
+            Apply Filters
+          </Button>
         </CardContent>
       </Card>
 
-
+      {/*Listed Cars*/}
       <Card className="mt-4 mx-2">
         <CardHeader>
-          <CardTitle>Listed Vehicles</CardTitle>
+          <CardTitle className="flex justify-between">
+            Listed Vehicles
+            <button onClick={handleRefresh}>
+              <RefreshCw className={`w-5 h-5 ${spinning ? "animate-spin" : ""}`} />
+            </button>
+          </CardTitle>
         </CardHeader>
-        
-        <CardContent className="flex gap-2">
-            {cars.map((car, idx) => (
-            <div 
-              key={idx}
-              onClick={() => { setSelectedCar(car); setOpen(true); }}
-              className="cursor-pointer"
-            >
-              <Car car={car} />
-            </div>
-          ))}
+
+        <CardContent className="flex gap-2 flex-wrap">
+          {filteredCars.length > 0 ? (
+            filteredCars.map((car, idx) => (
+              <div
+                key={idx}
+                onClick={() => { setSelectedCar(car); setOpen(true); }}
+                className="cursor-pointer"
+              >
+                <Car car={car} />
+              </div>
+            ))
+          ) : (
+            <p className="text-gray-500">No cars match your filters</p>
+          )}
         </CardContent>
       </Card>
 
-
-      {/* Car Details Dialog */}
       <Dialog open={open} onOpenChange={setOpen}>
         <DialogContent className="min-w-3xl max-h-[88vh] overflow-y-auto scrollbar-hide">
           <DialogHeader>
-            <DialogTitle>{selectedCar?.name}</DialogTitle>
+            <DialogTitle>{selectedCar?.carName}</DialogTitle>
           </DialogHeader>
-            {selectedCar && <CarDetails car={selectedCar} />}
+          {selectedCar && <CarDetails car={selectedCar} />}
         </DialogContent>
       </Dialog>
-
-
-        
-
     </div>
-  )
-}
+  );
+};
 
 export default BuyCar
