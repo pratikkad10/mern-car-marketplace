@@ -95,23 +95,19 @@ export const login = async (req, res) => {
 
 export const getProfile = async (req, res) => {
   try {
-    const user = await User.findById(req.user._id).select("-password");
+    console.log("from getProfile",req.user);
+    
+    const user = await User.findById(req.user.id).select("-password");
 
+    console.log(user);
+    
     if (!user) {
       return res.status(404).json({ success: false, error: "User not found" });
     }
 
     res.status(200).json({
       success: true,
-      user: {
-        id: user._id,
-        fullName: user.fullName,
-        username: user.username,
-        email: user.email,
-        phone: user.phone,
-        gender: user.gender,
-        role: user.role,
-      },
+      user: user,
     });
   } catch (error) {
     console.error("Error fetching profile:", error);
