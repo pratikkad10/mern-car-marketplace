@@ -1,19 +1,37 @@
-import React, { useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import img from '../assets/img2.jpg';
 import { Button } from '../components/ui/button.jsx';
 import Car from '../components/Car.jsx';
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from '../components/ui/dialog.jsx';
 import CarDetails from '../components/CarDetails.jsx';
 import Review from '../components/Review.jsx';
-import { testCar } from '../lib/cardata.js';
 import { Card, CardContent, CardHeader, CardTitle } from '../components/ui/card';
+import { CarContext } from '../context/CarContext';
+import { useNavigate } from 'react-router-dom';
+import { useSpin } from '../hooks/useSpin';
+import { RefreshCw } from 'lucide-react';
 
 const Home = () => {
   const [open, setOpen] = useState(false);
   const [selectedCar, setSelectedCar] = useState(null);
+  const {spinning, spin} = useSpin()
+  const navigate = useNavigate()
 
+  const { cars, getCars} = useContext(CarContext)
   
-  const cars = [testCar];
+  useEffect(()=>{
+    getCars()
+  }, [])
+
+  const handleRefresh = () => {
+    spin(true);
+
+    getCars()
+
+    spin(false)
+  };
+
+
 
   return (
     <div className='flex flex-col'>
@@ -26,8 +44,8 @@ const Home = () => {
             Discover the easiest way to buy and sell cars online. Browse thousands of vehicles or list yours in minutes.
           </p>
           <div className='flex gap-4 my-6'>
-            <Button variant="secondary">Browse Cars</Button>
-            <Button variant="outline" className="text-zinc-100">Sell Your Car</Button>
+            <Button onClick={()=> getCars()} variant="secondary">Browse Cars</Button>
+            <Button onClick={()=> navigate("/car/sell")} variant="outline" className="text-zinc-100">Sell Your Car</Button>
           </div>
         </div>
       </div>
@@ -50,10 +68,15 @@ const Home = () => {
 
       <Card className="mt-4 mx-2">
         <CardHeader>
-          <CardTitle>Listed Vehicles</CardTitle>
+          <CardTitle className="flex justify-between">
+            Listed Vehicles
+            <button onClick={handleRefresh}>
+              <RefreshCw className={`w-5 h-5 ${spinning ? "animate-spin" : ""}`} />
+            </button>
+            </CardTitle>
         </CardHeader>
         
-        <CardContent className="flex gap-2">
+        <CardContent className="flex flex-wrap gap-2">
             {cars.map((car, idx) => (
             <div 
               key={idx}
