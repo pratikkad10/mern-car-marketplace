@@ -4,7 +4,7 @@ import { NavLink } from "react-router-dom";
 import { AuthContext } from "../context/AuthContext";
 
 function Navbar() {
-  const { user, isLoggedIn, logout } = useContext(AuthContext);
+  const { user, isLoggedIn} = useContext(AuthContext);
 
   return (
     <div className="flex justify-between px-[1rem] py-[12px] bg-[#F9FAFB] fixed top-0 w-full shadow-sm z-10">
@@ -32,13 +32,13 @@ function Navbar() {
               <User2 />
               <span>{user?.fullName || "Profile"}</span>
             </NavLink>
-            <button
+            {/* <button
               onClick={logout}
               className="flex items-center gap-1 hover:text-red-700 transition-all delay-75"
               aria-label="Logout"
             >
               Logout <LogOut />
-            </button>
+            </button> */}
           </>
         ) : (
           <NavLink
