@@ -13,10 +13,10 @@ import {
   FormMessage,
 } from "../../components/ui/form";
 
-import { loginUser } from "../../services/api";
-import useLoading from "../../hooks/useLoading";
-import { toast } from "react-toastify";
+
 import { useNavigate } from "react-router-dom";
+import { useContext } from "react";
+import { AuthContext } from "../../context/AuthContext";
 
 const formSchema = z.object({
   username: z.string().min(2, "Username must be at least 2 characters."),
@@ -24,8 +24,11 @@ const formSchema = z.object({
 });
 
 export default function Signin() {
+
+  const { loading, login } = useContext(AuthContext);
+
+
   const navigate = useNavigate();
-  const { start, stop } = useLoading();
 
   const form = useForm({
     resolver: zodResolver(formSchema),
@@ -36,25 +39,7 @@ export default function Signin() {
   });
 
   async function onSubmit(values) {
-    start();
-    try {
-      const res = await loginUser({
-        email: values.username,
-        password: values.password,
-      });
-
-      console.log("Login success:", res.data);
-      toast.success(`Welcome, ${res.data.user.fullName}`);
-      const token = res.data.token;
-      localStorage.setItem("token", token)
-      
-      navigate("/user/dashboard");
-    } catch (err) {
-      console.error(err);
-      toast.error(err.response?.data?.message || "Login failed");
-    } finally {
-      stop();
-    }
+    login(values)
   }
 
   return (
@@ -91,7 +76,7 @@ export default function Signin() {
               )}
             />
             <Button type="submit" className="w-full">
-              Login
+              { loading? "Loading..." : "Login"}
             </Button>
           </form>
         </Form>
