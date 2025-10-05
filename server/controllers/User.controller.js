@@ -97,7 +97,8 @@ export const getProfile = async (req, res) => {
   try {
     console.log("from getProfile",req.user);
     
-    const user = await User.findById(req.user.id).select("-password");
+    const user = await User.findById(req.user.id)
+    .select("-password").populate("listedCars").populate("buyedCars");
 
     console.log(user);
     
