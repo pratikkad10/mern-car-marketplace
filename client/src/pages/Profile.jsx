@@ -24,6 +24,9 @@ const Profile = () => {
   const { logout, user, loading } = useContext(AuthContext);
   const navigate = useNavigate();
 
+  console.log("User from profile component ", user);
+  
+
   const handleSubmit = (e) => {
     e.preventDefault();
     if (newPassword !== confirmPassword) {
