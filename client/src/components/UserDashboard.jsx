@@ -84,18 +84,26 @@ const UserDashboard = () => {
           ) : (
             <div className="grid md:grid-cols-2 gap-4 mt-4">
               {listedCars.map((car, idx) => (
-                <Card key={idx} className="overflow-hidden">
-                  <img
-                    src={car.image || "/placeholder-car.jpg"}
-                    alt={car.model || "Car"}
-                    className="w-full h-40 object-cover"
-                  />
-                  <CardContent className="p-4">
-                    <h3 className="font-semibold">
-                      {car.brand} {car.model}
-                    </h3>
-                    <p className="text-gray-500">₹{car.price}</p>
-                    <div className="flex justify-between mt-3">
+                <Card key={idx} className="overflow-hidden flex flex-col">
+                  {/* Image */}
+                  <div className="h-52 w-full relative">
+                    <img
+                      src={car.images[0] || "/placeholder-car.jpg"}
+                      alt={car.model || "Car"}
+                      className="h-full w-full object-cover rounded-t-lg"
+                    />
+                  </div>
+
+                  {/* Card Content */}
+                  <CardContent className="p-4 flex-1 flex flex-col justify-between">
+                    <div>
+                      <h3 className="font-semibold text-lg">
+                        {car.brand} {car.model}
+                      </h3>
+                      <p className="text-gray-500 text-sm mt-1">₹{car.price.toLocaleString()}</p>
+                    </div>
+
+                    <div className="flex justify-between mt-4">
                       <Button variant="outline" size="sm">
                         <Edit className="h-4 w-4" /> Edit
                       </Button>
