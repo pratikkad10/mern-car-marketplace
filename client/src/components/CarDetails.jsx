@@ -1,102 +1,288 @@
-import React from 'react'
-import { Button } from './ui/button'
-import { Check, ContactIcon, Heart, LocateIcon,  Share , Mail, Phone, Store } from 'lucide-react'
-import { Badge } from './ui/badge'
-import { Card, CardContent } from './ui/card'
-import CarDashboard from './CarDashboard'
+import React, { useState } from "react";
+import {
+    Check,
+    ContactIcon,
+    Heart,
+    LocateIcon,
+    Share,
+    Mail,
+    Phone,
+    Store,
+    X,
+    MapPin,
+    Star,
+    PhoneCall,
+    MessageCircle,
+} from "lucide-react";
+import { Button } from "./ui/button";
+import { Badge } from "./ui/badge";
+import {
+    Card,
+    CardContent,
+    CardHeader,
+    CardTitle,
+} from "./ui/card";
+import {
+    Dialog,
+    DialogContent,
+    DialogHeader,
+    DialogTitle,
+    DialogTrigger,
+} from "../components/ui/dialog";
+import { Input } from "../components/ui/input";
+import { Textarea } from "../components/ui/textarea";
+import { VisuallyHidden } from "@radix-ui/react-visually-hidden";
+import CarDashboard from "./CarDashboard";
+import ScheduleTestDriveForm from "./ScheduleTestDriveForm";
+import { createIntrestedUser } from "../services/api";
+import { toast } from "react-toastify";
 
-const CarDetails = ({ car }) => {
+/* -------------------- CONTACT SELLER FORM -------------------- */
+const ContactSellerForm = ({car,  seller }) => {
+    const [formData, setFormData] = useState({
+        name: "",
+        phone: "",
+        message: ""
+    });
+
+    console.log(car);
+    
+
+    const [charCount, setCharCount] = useState(0);
+
+    // Handle input changes
+    const handleChange = (e) => {
+        const { name, value } = e.target;
+        setFormData((prev) => ({ ...prev, [name]: value }));
+        if (name === "message") setCharCount(value.length);
+    };
+
+    // Open dialer
+    const handleCallNow = () => {
+        window.open(`tel:${seller?.phone || "+919876543210"}`);
+    };
+
+    // Open WhatsApp
+    const handleWhatsApp = () => {
+        const phone = seller?.phone?.replace(/\D/g, "") || "919876543210";
+        const text = encodeURIComponent("Hi, I'm interested in your car listing.");
+        window.open(`https://wa.me/${phone}?text=${text}`, "_blank");
+    };
+
+    // Send message
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+
+        const payload = {
+            carId: car?.id || car?._id || null,
+            sellerId: seller?._id || null,
+            sellerName: seller?.fullName || "Premium Motors Delhi",
+            sellerPhone: seller?.phone || "+91 98765 43210",
+            buyerName: formData.name,
+            buyerPhone: formData.phone,
+            message: formData.message || "I'm interested in this car. Please contact me.",
+            sentAt: new Date().toISOString(),
+        };
+
+        console.log("📦 Payload to send:", payload);
+
+        const response = await createIntrestedUser(payload);
+
+        toast.success("Message sent successfully!");
+        setFormData({ name: "", phone: "", message: "" });
+        setCharCount(0);
+    };
 
     return (
-        <div>
+        <Card className="rounded-2xl shadow-md bg-white w-[400px] max-w-full">
+            <CardHeader className="flex flex-row items-center justify-between pb-2 border-b">
+                <CardTitle>Contact Seller</CardTitle>
+                <Button variant="ghost" size="icon" className="h-8 w-8 p-0">
+                    <X className="h-5 w-5" />
+                </Button>
+            </CardHeader>
 
-            <div >
-                <img className='rounded-md' src={car.images[0]} alt="carimage" />
-            </div>
-
-            <div className='mt-4 flex justify-between'>
+            <CardContent className="space-y-4">
+                {/* Seller Info */}
                 <div>
-                    <p className='text-sm text-gray-500'>Price</p>
-                    <p className='font-bold text-xl'>₹{car.price}</p>
+                    <p className="font-medium text-base">
+                        {seller?.fullName || "Premium Motors Delhi"}
+                    </p>
+                    <div className="flex items-center gap-2 text-sm text-gray-600">
+                        <Phone className="h-4 w-4" />
+                        <span>{seller?.phone || "+91 98765 43210"}</span>
+                    </div>
+                    <div className="flex items-center gap-2 text-sm text-gray-600">
+                        <MapPin className="h-4 w-4" />
+                        <span>{seller?.location || "Mumbai, Maharashtra"}</span>
+                    </div>
+                    {/* <div className="flex items-center gap-1 text-sm text-yellow-500 mt-1">
+                        <Star className="h-4 w-4 fill-yellow-500" />
+                        <span className="text-gray-800 font-medium">4.5</span>
+                        <span className="text-gray-500">(127 reviews)</span>
+                    </div> */}
                 </div>
 
-                <div className='flex gap-2'>
-                    <Button variant="outline"> <Heart /> Save</Button>
-                    <Button variant="outline"> <Share /> Share</Button>
-                    <Button className='bg-blue-500' > <ContactIcon /> Contact Seller</Button>
+                {/* Buttons */}
+                <div className="flex flex-col gap-2 mt-4">
+                    <Button
+                        onClick={handleCallNow}
+                        className="bg-blue-600 hover:bg-blue-700 w-full"
+                    >
+                        <PhoneCall className="mr-2 h-4 w-4" /> Call Now
+                    </Button>
+                    <Button
+                        onClick={handleWhatsApp}
+                        className="bg-green-600 hover:bg-green-700 w-full"
+                    >
+                        <MessageCircle className="mr-2 h-4 w-4" /> WhatsApp
+                    </Button>
+                </div>
+
+                {/* Form */}
+                <form onSubmit={handleSubmit} className="space-y-3 mt-4">
+                    <div>
+                        <label className="text-sm font-medium">Your Name</label>
+                        <Input
+                            name="name"
+                            placeholder="Enter your name"
+                            value={formData.name}
+                            onChange={handleChange}
+                            required
+                        />
+                    </div>
+                    <div>
+                        <label className="text-sm font-medium">Your Phone</label>
+                        <Input
+                            name="phone"
+                            placeholder="Enter your phone number"
+                            value={formData.phone}
+                            onChange={handleChange}
+                            required
+                        />
+                    </div>
+                    <div>
+                        <label className="text-sm font-medium">Message</label>
+                        <Textarea
+                            name="message"
+                            placeholder="I'm interested in this car. Please contact me."
+                            maxLength={500}
+                            value={formData.message}
+                            onChange={handleChange}
+                        />
+                        <p className="text-xs text-gray-500 mt-1">{charCount}/500 characters</p>
+                    </div>
+                    <Button
+                        type="submit"
+                        className="bg-amber-500 hover:bg-amber-600 w-full"
+                    >
+                        Send Message
+                    </Button>
+                </form>
+
+                <p className="text-xs text-gray-500 mt-2 text-center">
+                    ℹ️ Your contact details will be shared with the seller. They will contact you directly.
+                </p>
+            </CardContent>
+        </Card>
+    );
+};
+
+/* -------------------- CAR DETAILS COMPONENT -------------------- */
+const CarDetails = ({ car }) => {
+    return (
+        <div>
+            {/* Car Image */}
+            <div>
+                <img className="rounded-md w-full" src={car.images[0]} alt="car" />
+            </div>
+
+            {/* Price + Buttons */}
+            <div className="mt-4 flex justify-between">
+                <div>
+                    <p className="text-sm text-gray-500">Price</p>
+                    <p className="font-bold text-xl">₹{car.price}</p>
+                </div>
+
+                <div className="flex gap-2">
+                    <Button variant="outline">
+                        <Heart /> Save
+                    </Button>
+                    <Button variant="outline">
+                        <Share /> Share
+                    </Button>
+
+                    {/* Contact Seller Dialog (Accessibility Fixed) */}
+                    <Dialog>
+                        <DialogTrigger asChild>
+                            <Button className="bg-blue-500 text-white">
+                                <ContactIcon className="mr-2 h-4 w-4" /> Contact Seller
+                            </Button>
+                        </DialogTrigger>
+
+                        <DialogContent className="p-0 border-none bg-transparent shadow-none">
+                            {/* Accessibility fix */}
+                            <VisuallyHidden>
+                                <DialogTitle>Contact Seller Form</DialogTitle>
+                            </VisuallyHidden>
+
+                            <ContactSellerForm car={car} seller={car.seller} />
+                        </DialogContent>
+                    </Dialog>
                 </div>
             </div>
 
-            <div className='flex mt-4 w-full gap-4'>
-                {/* specification */}
-                <div className='w-[50%]'>
-                    <h1 className='font-semibold'>Specifications</h1>
+            {/* Specifications */}
+            <div className="flex mt-4 w-full gap-4">
+                <div className="w-[50%]">
+                    <h1 className="font-semibold">Specifications</h1>
                     <div className="grid grid-cols-2 gap-4 mt-4">
-
-                        <Badge variant="outline" className="flex flex-col items-start p-3 w-full bg-muted/40">
-                            <p className="text-xs text-gray-500">Make</p>
-                            <p className="font-medium">{car.brand}</p>
-                        </Badge>
-
-                        <Badge variant="outline" className="flex flex-col items-start p-3 w-full bg-muted/40">
-                            <p className="text-xs text-gray-500">Model</p>
-                            <p className="font-medium">{car.model}</p>
-                        </Badge>
-
-                        <Badge variant="outline" className="flex flex-col items-start p-3 w-full bg-muted/40">
-                            <p className="text-xs text-gray-500">Year</p>
-                            <p className="font-medium">{car.year}</p>
-                        </Badge>
-
-                        <Badge variant="outline" className="flex flex-col items-start p-3 w-full bg-muted/40">
-                            <p className="text-xs text-gray-500">Mileage</p>
-                            <p className="font-medium">{car.mileage} km</p>
-                        </Badge>
-
-                        <Badge variant="outline" className="flex flex-col items-start p-3 w-full bg-muted/40">
-                            <p className="text-xs text-gray-500">Fuel Type</p>
-                            <p className="font-medium">{car.fuelType}</p>
-                        </Badge>
-
-                        <Badge variant="outline" className="flex flex-col items-start p-3 w-full bg-muted/40">
-                            <p className="text-xs text-gray-500">Transmission</p>
-                            <p className="font-medium">{car.transmission}</p>
-                        </Badge>
-
-                        <Badge variant="outline" className="flex flex-col items-start p-3 w-full bg-muted/40">
-                            <p className="text-xs text-gray-500">Car Type</p>
-                            <p className="font-medium">{car.carType}</p>
-                        </Badge>
-
-                        <Badge variant="outline" className="flex flex-col items-start p-3 w-full bg-muted/40">
-                            <p className="text-xs text-gray-500">Color</p>
-                            <p className="font-medium">{car.color}</p>
-                        </Badge>
+                        {[
+                            ["Make", car.brand],
+                            ["Model", car.model],
+                            ["Year", car.year],
+                            ["Mileage", `${car.mileage} km`],
+                            ["Fuel Type", car.fuelType],
+                            ["Transmission", car.transmission],
+                            ["Car Type", car.carType],
+                            ["Color", car.color],
+                        ].map(([label, value], i) => (
+                            <Badge
+                                key={i}
+                                variant="outline"
+                                className="flex flex-col items-start p-3 w-full bg-muted/40"
+                            >
+                                <p className="text-xs text-gray-500">{label}</p>
+                                <p className="font-medium">{value}</p>
+                            </Badge>
+                        ))}
                     </div>
                 </div>
 
-                {/* features */}
+                {/* Features */}
                 <div className="flex flex-col w-[50%] gap-2">
                     <h3 className="font-semibold mb-2">Key Features</h3>
-                    {car.features.map((feature, id) => (
-                        <Badge
-                            key={id}
-                            variant="outline"
-                            className="w-full py-2 pl-3 flex items-center gap-2 justify-start bg-muted/40"
-                        >
-                            <Check className="w-4 h-4 text-blue-500" />
-                            <span>{feature}</span>
-                        </Badge>
-                    ))}
+                    {car.features &&
+                        JSON.parse(car.features[0]).map((feature, id) => (
+                            <Badge
+                                key={id}
+                                variant="outline"
+                                className="w-full py-2 pl-3 flex items-center gap-2 justify-start bg-muted/40"
+                            >
+                                <Check className="w-4 h-4 text-blue-500" />
+                                <span>{feature}</span>
+                            </Badge>
+                        ))}
                 </div>
-
             </div>
 
-            <div className='mt-4'>
+            {/* Description */}
+            <div className="mt-4">
                 <h3 className="font-semibold mb-2">Description</h3>
-                <p className='font-extralight text-sm'>{car.description}</p>
+                <p className="font-extralight text-sm">{car.description}</p>
             </div>
 
+            {/* Location */}
             <div className="mt-4">
                 <h3 className="font-semibold mb-2">Location</h3>
                 <Badge
@@ -109,25 +295,25 @@ const CarDetails = ({ car }) => {
                 </Badge>
             </div>
 
+            {/* Dashboard */}
             <CarDashboard car={car} />
 
+            {/* Seller Information */}
             <div className="mt-6">
                 <h3 className="font-semibold mb-3">Seller Information</h3>
-
                 <Card className="rounded-2xl shadow-sm bg-gray-50">
                     <CardContent className="p-4">
-                        {/* Seller Header */}
                         <div className="flex items-center mb-4">
                             <div className="w-12 h-12 rounded-full bg-gray-200 flex items-center justify-center">
                                 <Store className="w-6 h-6 text-gray-600" />
                             </div>
                             <div className="ml-4">
                                 <h4 className="font-semibold">{car.seller.fullName}</h4>
+                                {/* <h4 className="font-semibold">{car.seller._id}</h4> */}
                                 <p className="text-sm text-gray-500">{car.seller.email}</p>
                             </div>
                         </div>
 
-                        {/* Contact Info */}
                         <div className="flex flex-col sm:flex-row sm:items-center sm:space-x-6 text-sm text-gray-600 mb-4">
                             <div className="flex items-center mb-2 sm:mb-0">
                                 <Phone className="w-4 h-4 mr-2" />
@@ -139,22 +325,30 @@ const CarDetails = ({ car }) => {
                             </div>
                         </div>
 
-                        {/* Contact Button */}
-                        <Button className="w-full bg-blue-500 hover:bg-blue-600 text-white font-semibold rounded-md">
-                            Contact Seller
-                        </Button>
+                        {/* <Button className="w-full bg-blue-500 hover:bg-blue-600 text-white font-semibold rounded-md">
+              Contact Seller
+            </Button> */}
+                        {/* Schedule Test Drive Dialog */}
+                        <Dialog>
+                            <DialogTrigger asChild>
+                                <Button className="w-full mt-2 bg-blue-500 hover:bg-blue-600 text-white font-semibold rounded-md">
+                                    Schedule Test Drive
+                                </Button>
+                            </DialogTrigger>
 
-                        <Button className="w-full mt-2 bg-blue-500 hover:bg-blue-600 text-white font-semibold rounded-md">
-                            Buy car
-                        </Button>
+                            <DialogContent className="p-0 border-none bg-transparent shadow-none">
+                                <VisuallyHidden>
+                                    <DialogTitle>Schedule Test Drive</DialogTitle>
+                                </VisuallyHidden>
+                                <ScheduleTestDriveForm car={car} />
+                            </DialogContent>
+                        </Dialog>
+
                     </CardContent>
                 </Card>
             </div>
-
-            
-
         </div>
-    )
-}
+    );
+};
 
-export default CarDetails
+export default CarDetails;
