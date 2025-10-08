@@ -34,9 +34,9 @@ const UserDashboard = () => {
   console.log("Listed Cars:", listedCars[0]._id);
 
   return (
-    <div className="p-6 space-y-6">
+    <div className="p-4 sm:p-6 space-y-6 max-w-6xl mx-auto">
       {/* Welcome Section */}
-      <div className="flex items-center justify-between">
+      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
         <div>
           <p className="text-gray-700">Manage your cars & purchases</p>
         </div>
@@ -51,7 +51,7 @@ const UserDashboard = () => {
       </div>
 
       {/* Quick Stats */}
-      <div className="grid grid-cols-3 gap-4">
+      <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
         <Card className="p-4 text-center">
           <CarFront className="mx-auto text-blue-500" />
           <p className="text-gray-500">Listed Cars</p>
@@ -75,7 +75,7 @@ const UserDashboard = () => {
 
       {/* Tabs for Listings & Purchases */}
       <Tabs defaultValue="listings" className="w-full mt-6">
-        <TabsList className="grid grid-cols-2 w-[300px]">
+        <TabsList className="grid grid-cols-2 w-full sm:w-[320px]">
           <TabsTrigger value="listings">My Listings</TabsTrigger>
           <TabsTrigger value="purchases">My Wishlist</TabsTrigger>
         </TabsList>
@@ -85,7 +85,7 @@ const UserDashboard = () => {
           {listedCars.length === 0 ? (
             <p className="text-gray-500 mt-4">No cars listed yet.</p>
           ) : (
-            <div className="grid md:grid-cols-2 gap-4 mt-4">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
               {listedCars.map((car, idx) => (
                 <Card key={idx} className="overflow-hidden flex flex-col">
                   {/* Image */}
@@ -106,8 +106,8 @@ const UserDashboard = () => {
                       <p className="text-gray-500 text-sm mt-1">₹{car.price.toLocaleString()}</p>
                     </div>
 
-                    <div className="flex justify-between mt-4">
-                      <Button variant="outline" size="sm">
+                    <div className="flex flex-col sm:flex-row sm:justify-between gap-2 mt-4">
+                      <Button variant="outline" size="sm" className="w-full sm:w-auto">
                         <Edit className="h-4 w-4" /> Edit
                       </Button>
 
@@ -126,6 +126,7 @@ const UserDashboard = () => {
                         }}
                         variant="destructive"
                         size="sm"
+                        className="w-full sm:w-auto"
                       >
                         <Trash className="h-4 w-4" /> Delete
                       </Button>
@@ -142,7 +143,7 @@ const UserDashboard = () => {
           {buyedCars.length === 0 ? (
             <p className="text-gray-500 mt-4">No liked cars yet.</p>
           ) : (
-            <div className="grid md:grid-cols-2 gap-4 mt-4">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
               {buyedCars.map((car, idx) => (
                 <Card key={idx} className="overflow-hidden">
                   <img

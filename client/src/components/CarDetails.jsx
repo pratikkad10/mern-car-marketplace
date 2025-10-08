@@ -28,6 +28,7 @@ import {
     DialogHeader,
     DialogTitle,
     DialogTrigger,
+    DialogClose,
 } from "../components/ui/dialog";
 import { Input } from "../components/ui/input";
 import { Textarea } from "../components/ui/textarea";
@@ -94,12 +95,14 @@ const ContactSellerForm = ({car,  seller }) => {
     };
 
     return (
-        <Card className="rounded-2xl shadow-md bg-white w-[400px] max-w-full">
+        <Card className="rounded-2xl shadow-md bg-card text-card-foreground w-full max-w-[92vw] sm:max-w-[420px] md:max-w-[480px] max-h-[85vh] overflow-y-auto">
             <CardHeader className="flex flex-row items-center justify-between pb-2 border-b">
                 <CardTitle>Contact Seller</CardTitle>
-                <Button variant="ghost" size="icon" className="h-8 w-8 p-0">
-                    <X className="h-5 w-5" />
-                </Button>
+                <DialogClose asChild>
+                    <Button variant="ghost" size="icon" className="h-8 w-8 p-0">
+                        <X className="h-5 w-5" />
+                    </Button>
+                </DialogClose>
             </CardHeader>
 
             <CardContent className="space-y-4">
@@ -108,11 +111,11 @@ const ContactSellerForm = ({car,  seller }) => {
                     <p className="font-medium text-base">
                         {seller?.fullName || "Premium Motors Delhi"}
                     </p>
-                    <div className="flex items-center gap-2 text-sm text-gray-600">
+                    <div className="flex items-center gap-2 text-sm text-muted-foreground">
                         <Phone className="h-4 w-4" />
                         <span>{seller?.phone || "+91 98765 43210"}</span>
                     </div>
-                    <div className="flex items-center gap-2 text-sm text-gray-600">
+                    <div className="flex items-center gap-2 text-sm text-muted-foreground">
                         <MapPin className="h-4 w-4" />
                         <span>{seller?.location || "Mumbai, Maharashtra"}</span>
                     </div>
@@ -127,13 +130,13 @@ const ContactSellerForm = ({car,  seller }) => {
                 <div className="flex flex-col gap-2 mt-4">
                     <Button
                         onClick={handleCallNow}
-                        className="bg-blue-600 hover:bg-blue-700 w-full"
+                        className="w-full bg-primary hover:bg-primary/90 text-primary-foreground"
                     >
                         <PhoneCall className="mr-2 h-4 w-4" /> Call Now
                     </Button>
                     <Button
                         onClick={handleWhatsApp}
-                        className="bg-green-600 hover:bg-green-700 w-full"
+                        className="w-full bg-green-600 hover:bg-green-700 text-white"
                     >
                         <MessageCircle className="mr-2 h-4 w-4" /> WhatsApp
                     </Button>
@@ -142,7 +145,7 @@ const ContactSellerForm = ({car,  seller }) => {
                 {/* Form */}
                 <form onSubmit={handleSubmit} className="space-y-3 mt-4">
                     <div>
-                        <label className="text-sm font-medium">Your Name</label>
+                        <label className="text-sm font-medium text-foreground">Your Name</label>
                         <Input
                             name="name"
                             placeholder="Enter your name"
@@ -152,7 +155,7 @@ const ContactSellerForm = ({car,  seller }) => {
                         />
                     </div>
                     <div>
-                        <label className="text-sm font-medium">Your Phone</label>
+                        <label className="text-sm font-medium text-foreground">Your Phone</label>
                         <Input
                             name="phone"
                             placeholder="Enter your phone number"
@@ -162,7 +165,7 @@ const ContactSellerForm = ({car,  seller }) => {
                         />
                     </div>
                     <div>
-                        <label className="text-sm font-medium">Message</label>
+                        <label className="text-sm font-medium text-foreground">Message</label>
                         <Textarea
                             name="message"
                             placeholder="I'm interested in this car. Please contact me."
@@ -170,17 +173,17 @@ const ContactSellerForm = ({car,  seller }) => {
                             value={formData.message}
                             onChange={handleChange}
                         />
-                        <p className="text-xs text-gray-500 mt-1">{charCount}/500 characters</p>
+                        <p className="text-xs text-muted-foreground mt-1">{charCount}/500 characters</p>
                     </div>
                     <Button
                         type="submit"
-                        className="bg-amber-500 hover:bg-amber-600 w-full"
+                        className="w-full bg-primary hover:bg-primary/90 text-primary-foreground"
                     >
                         Send Message
                     </Button>
                 </form>
 
-                <p className="text-xs text-gray-500 mt-2 text-center">
+                <p className="text-xs text-muted-foreground mt-2 text-center">
                     ℹ️ Your contact details will be shared with the seller. They will contact you directly.
                 </p>
             </CardContent>
@@ -198,13 +201,13 @@ const CarDetails = ({ car }) => {
             </div>
 
             {/* Price + Buttons */}
-            <div className="mt-4 flex justify-between">
+            <div className="mt-4 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
                 <div>
                     <p className="text-sm text-gray-500">Price</p>
                     <p className="font-bold text-xl">₹{car.price}</p>
                 </div>
 
-                <div className="flex gap-2">
+                <div className="flex flex-wrap gap-2">
                     <Button variant="outline">
                         <Heart /> Save
                     </Button>
@@ -226,15 +229,17 @@ const CarDetails = ({ car }) => {
                                 <DialogTitle>Contact Seller Form</DialogTitle>
                             </VisuallyHidden>
 
-                            <ContactSellerForm car={car} seller={car.seller} />
+                            <div className="w-full flex justify-center items-start px-3 py-4 sm:px-4">
+                                <ContactSellerForm car={car} seller={car.seller} />
+                            </div>
                         </DialogContent>
                     </Dialog>
                 </div>
             </div>
 
             {/* Specifications */}
-            <div className="flex mt-4 w-full gap-4">
-                <div className="w-[50%]">
+            <div className="mt-4 w-full grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div className="">
                     <h1 className="font-semibold">Specifications</h1>
                     <div className="grid grid-cols-2 gap-4 mt-4">
                         {[
@@ -260,7 +265,7 @@ const CarDetails = ({ car }) => {
                 </div>
 
                 {/* Features */}
-                <div className="flex flex-col w-[50%] gap-2">
+                <div className="flex flex-col gap-2">
                     <h3 className="font-semibold mb-2">Key Features</h3>
                     {car.features &&
                         JSON.parse(car.features[0]).map((feature, id) => (
@@ -336,11 +341,13 @@ const CarDetails = ({ car }) => {
                                 </Button>
                             </DialogTrigger>
 
-                            <DialogContent className="p-0 border-none bg-transparent shadow-none">
+                        <DialogContent className="p-0 border-none bg-transparent shadow-none">
                                 <VisuallyHidden>
                                     <DialogTitle>Schedule Test Drive</DialogTitle>
                                 </VisuallyHidden>
-                                <ScheduleTestDriveForm car={car} />
+                            <div className="w-full flex justify-center items-start px-3 py-4 sm:px-4">
+                              <ScheduleTestDriveForm car={car} />
+                            </div>
                             </DialogContent>
                         </Dialog>
 

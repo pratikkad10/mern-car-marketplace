@@ -80,20 +80,20 @@ export default function Signup() {
 
 
   return (
-    <div className="flex items-center justify-center min-h-screen bg-gray-50 ">
-      <div className="w-full max-w-sm p-6 my-8 rounded-2xl shadow-md border bg-white">
-        <h2 className="text-2xl font-semibold mb-4 text-center">Create Account</h2>
+    <div className="min-h-screen bg-background px-4 sm:px-6 lg:px-8 flex items-center justify-center">
+      <div className="w-full max-w-xs sm:max-w-sm md:max-w-2xl lg:max-w-3xl p-6 sm:p-8 md:p-10 my-8 rounded-2xl shadow-md border bg-card text-card-foreground">
+        <h2 className="text-2xl sm:text-3xl md:text-4xl font-semibold mb-4 sm:mb-6 text-center">Create Account</h2>
 
         <Form {...form}>
-          <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-5">
+          <form onSubmit={form.handleSubmit(onSubmit)} className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-5">
 
             {/* Full Name */}
             <FormField
               control={form.control}
               name="fullName"
               render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Full Name</FormLabel>
+                <FormItem className="col-span-1">
+                  <FormLabel className="text-sm sm:text-base">Full Name</FormLabel>
                   <FormControl>
                     <Input placeholder="Enter full name" {...field} />
                   </FormControl>
@@ -107,8 +107,8 @@ export default function Signup() {
               control={form.control}
               name="username"
               render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Username</FormLabel>
+                <FormItem className="col-span-1">
+                  <FormLabel className="text-sm sm:text-base">Username</FormLabel>
                   <FormControl>
                     <Input placeholder="Choose a username" {...field} />
                   </FormControl>
@@ -122,8 +122,8 @@ export default function Signup() {
               control={form.control}
               name="email"
               render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Email</FormLabel>
+                <FormItem className="col-span-1">
+                  <FormLabel className="text-sm sm:text-base">Email</FormLabel>
                   <FormControl>
                     <Input type="email" placeholder="Enter email" {...field} />
                   </FormControl>
@@ -137,8 +137,8 @@ export default function Signup() {
               control={form.control}
               name="phone"
               render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Phone Number</FormLabel>
+                <FormItem className="col-span-1">
+                  <FormLabel className="text-sm sm:text-base">Phone Number</FormLabel>
                   <FormControl>
                     <Input type="tel" placeholder="Enter phone number" {...field} />
                   </FormControl>
@@ -152,8 +152,8 @@ export default function Signup() {
               control={form.control}
               name="gender"
               render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Gender</FormLabel>
+                <FormItem className="col-span-1">
+                  <FormLabel className="text-sm sm:text-base">Gender</FormLabel>
                   <FormControl>
                     <Select onValueChange={field.onChange} defaultValue={field.value}>
                       <SelectTrigger>
@@ -176,8 +176,8 @@ export default function Signup() {
               control={form.control}
               name="role"
               render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Role</FormLabel>
+                <FormItem className="col-span-1">
+                  <FormLabel className="text-sm sm:text-base">Role</FormLabel>
                   <FormControl>
                     <Select onValueChange={field.onChange} defaultValue={field.value}>
                       <SelectTrigger>
@@ -200,8 +200,8 @@ export default function Signup() {
               control={form.control}
               name="password"
               render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Password</FormLabel>
+                <FormItem className="col-span-1">
+                  <FormLabel className="text-sm sm:text-base">Password</FormLabel>
                   <FormControl>
                     <Input type="password" placeholder="Enter password" {...field} />
                   </FormControl>
@@ -215,8 +215,8 @@ export default function Signup() {
               control={form.control}
               name="confirmPassword"
               render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Confirm Password</FormLabel>
+                <FormItem className="col-span-1">
+                  <FormLabel className="text-sm sm:text-base">Confirm Password</FormLabel>
                   <FormControl>
                     <Input type="password" placeholder="Confirm password" {...field} />
                   </FormControl>
@@ -225,12 +225,12 @@ export default function Signup() {
               )}
             />
 
-            <Button type="submit" className="w-full">{loading? "Loading...":"Sign Up"}</Button>
+            <Button type="submit" className="w-full py-2.5 sm:py-3 text-sm sm:text-base md:col-span-2">{loading? "Loading...":"Sign Up"}</Button>
           </form>
         </Form>
 
         {/* Already have account */}
-        <p className="mt-4 text-center text-sm text-gray-600">
+        <p className="mt-4 sm:mt-6 text-center text-xs sm:text-sm text-gray-600">
           Already have an account?{" "}
           <button
             type="button"

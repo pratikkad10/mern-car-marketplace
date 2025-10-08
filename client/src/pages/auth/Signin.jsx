@@ -43,18 +43,18 @@ export default function Signin() {
   }
 
   return (
-    <div className="flex items-center justify-center min-h-screen bg-gray-50">
-      <div className="w-full max-w-sm p-6 rounded-2xl shadow-md border bg-white">
-        <h2 className="text-2xl font-semibold mb-6 text-center">Login</h2>
+    <div className="min-h-screen bg-background px-4 sm:px-6 lg:px-8 flex items-center justify-center">
+      <div className="w-full max-w-xs sm:max-w-sm md:max-w-md lg:max-w-lg p-6 sm:p-8 md:p-10 rounded-2xl shadow-md border bg-card text-card-foreground">
+        <h2 className="text-2xl sm:text-3xl md:text-4xl font-semibold mb-6 sm:mb-8 text-center">Login</h2>
 
         <Form {...form}>
-          <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-5">
+          <form onSubmit={form.handleSubmit(onSubmit)} className="grid grid-cols-1 gap-4 sm:gap-5">
             <FormField
               control={form.control}
               name="username"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Username</FormLabel>
+                  <FormLabel className="text-sm sm:text-base">Username</FormLabel>
                   <FormControl>
                     <Input placeholder="Enter username" {...field} />
                   </FormControl>
@@ -67,7 +67,7 @@ export default function Signin() {
               name="password"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Password</FormLabel>
+                  <FormLabel className="text-sm sm:text-base">Password</FormLabel>
                   <FormControl>
                     <Input type="password" placeholder="Enter password" {...field} />
                   </FormControl>
@@ -75,14 +75,14 @@ export default function Signin() {
                 </FormItem>
               )}
             />
-            <Button type="submit" className="w-full">
+            <Button type="submit" className="w-full py-2.5 sm:py-3 text-sm sm:text-base">
               { loading? "Loading..." : "Login"}
             </Button>
           </form>
         </Form>
 
         {/* Sign up link using navigate */}
-        <p className="mt-4 text-center text-sm text-gray-600">
+        <p className="mt-4 sm:mt-6 text-center text-xs sm:text-sm text-gray-600">
           Don’t have an account?{" "}
           <button
             type="button"

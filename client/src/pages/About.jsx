@@ -3,11 +3,11 @@ import { Users, Car, Medal, HeartPulse } from 'lucide-react';
 
 const AboutUs = () => {
   return (
-    <div className="bg-gray-50">
+    <div className="bg-background text-foreground">
       {/* Navigation (same as your main page) */}
 
       {/* Hero Section */}
-      <section className="pt-24 pb-16 md:pt-32 md:pb-24 bg-gradient-to-r from-white via-white/80 to-white/20 bg-[url('https://images.unsplash.com/photo-1523983388277-336a66bf9bcd?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D')] bg-cover bg-center">
+      <section className="pt-24 pb-16 md:pt-32 md:pb-24 bg-[url('https://images.unsplash.com/photo-1523983388277-336a66bf9bcd?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D')] bg-cover bg-center">
         <div className="container mx-auto px-4 w-full">
           <div className="max-w-2xl">
             <h1 className="text-4xl md:text-5xl font-bold text-zinc-100 mb-4">About AutoMarket</h1>
@@ -19,19 +19,19 @@ const AboutUs = () => {
       </section>
 
       {/* Our Story Section */}
-      <section className="py-16 bg-white">
+      <section className="py-16 bg-card text-card-foreground">
         <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto">
-            <h2 className="text-3xl font-bold text-gray-900 mb-6 text-center">Our Story</h2>
+            <h2 className="text-3xl font-bold mb-6 text-center">Our Story</h2>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
               <div>
-                <p className="text-gray-700 mb-4">
+                <p className="text-muted-foreground mb-4">
                   Founded in 2010, AutoMarket began as a small local dealership with a passion for connecting people with their perfect vehicles.
                 </p>
-                <p className="text-gray-700 mb-4">
+                <p className="text-muted-foreground mb-4">
                   What started as a modest operation has grown into one of the most trusted names in the automotive industry, serving thousands of satisfied customers nationwide.
                 </p>
-                <p className="text-gray-700">
+                <p className="text-muted-foreground">
                   Our commitment to transparency, quality, and customer satisfaction has been the driving force behind our success.
                 </p>
               </div>
@@ -48,43 +48,43 @@ const AboutUs = () => {
       </section>
 
       {/* Our Values Section */}
-      <section className="py-16 bg-gray-50">
+      <section className="py-16 bg-background">
         <div className="container mx-auto px-4">
-          <h2 className="text-3xl font-bold text-gray-900 mb-12 text-center">Our Values</h2>
+          <h2 className="text-3xl font-bold mb-12 text-center">Our Values</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-            <div className="bg-white p-6 rounded-lg shadow-sm text-center">
+            <div className="bg-card text-card-foreground p-6 rounded-lg shadow-sm text-center">
               <div className="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4">
                 <Users className="w-8 h-8 text-primary" />
               </div>
-              <h3 className="text-lg font-semibold text-gray-900 mb-2">People First</h3>
-              <p className="text-gray-600">
+              <h3 className="text-lg font-semibold mb-2">People First</h3>
+              <p className="text-muted-foreground">
                 We prioritize our customers' needs and build lasting relationships based on trust.
               </p>
             </div>
-            <div className="bg-white p-6 rounded-lg shadow-sm text-center">
+            <div className="bg-card text-card-foreground p-6 rounded-lg shadow-sm text-center">
               <div className="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4">
                 <Car className="w-8 h-8 text-primary" />
               </div>
-              <h3 className="text-lg font-semibold text-gray-900 mb-2">Quality Vehicles</h3>
-              <p className="text-gray-600">
+              <h3 className="text-lg font-semibold mb-2">Quality Vehicles</h3>
+              <p className="text-muted-foreground">
                 Every car in our inventory undergoes rigorous inspection to ensure reliability.
               </p>
             </div>
-            <div className="bg-white p-6 rounded-lg shadow-sm text-center">
+            <div className="bg-card text-card-foreground p-6 rounded-lg shadow-sm text-center">
               <div className="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4">
                 <Medal className="w-8 h-8 text-primary" />
               </div>
-              <h3 className="text-lg font-semibold text-gray-900 mb-2">Integrity</h3>
-              <p className="text-gray-600">
+              <h3 className="text-lg font-semibold mb-2">Integrity</h3>
+              <p className="text-muted-foreground">
                 Honest pricing and transparent processes with no hidden fees or surprises.
               </p>
             </div>
-            <div className="bg-white p-6 rounded-lg shadow-sm text-center">
+            <div className="bg-card text-card-foreground p-6 rounded-lg shadow-sm text-center">
               <div className="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4">
                 <HeartPulse className="w-8 h-8 text-primary" />
               </div>
-              <h3 className="text-lg font-semibold text-gray-900 mb-2">Passion</h3>
-              <p className="text-gray-600">
+              <h3 className="text-lg font-semibold mb-2">Passion</h3>
+              <p className="text-muted-foreground">
                 We love what we do and it shows in every interaction and vehicle we offer.
               </p>
             </div>
@@ -93,9 +93,9 @@ const AboutUs = () => {
       </section>
 
       {/* Team Section */}
-      <section className="py-16 bg-white">
+      <section className="py-16 bg-card text-card-foreground">
         <div className="container mx-auto px-4">
-          <h2 className="text-3xl font-bold text-gray-900 mb-12 text-center">Meet Our Team</h2>
+          <h2 className="text-3xl font-bold mb-12 text-center">Meet Our Team</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {[
               {
@@ -117,7 +117,7 @@ const AboutUs = () => {
                 img: "https://images.unsplash.com/photo-1556157382-97eda2d62296?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
               }
             ].map((member, index) => (
-              <div key={index} className="bg-gray-50 rounded-lg overflow-hidden shadow-sm">
+              <div key={index} className="bg-background rounded-lg overflow-hidden shadow-sm">
                 <div className="relative h-64">
                   <img 
                     src={member.img}
@@ -126,9 +126,9 @@ const AboutUs = () => {
                   />
                 </div>
                 <div className="p-6">
-                  <h3 className="text-xl font-semibold text-gray-900">{member.name}</h3>
+                  <h3 className="text-xl font-semibold">{member.name}</h3>
                   <p className="text-primary font-medium mb-3">{member.role}</p>
-                  <p className="text-gray-600">{member.bio}</p>
+                  <p className="text-muted-foreground">{member.bio}</p>
                 </div>
               </div>
             ))}
@@ -137,7 +137,7 @@ const AboutUs = () => {
       </section>
 
       {/* Stats Section */}
-      <section className="py-16 bg-zinc-100 text-primary">
+      <section className="py-16 bg-secondary text-primary">
         <div className="container mx-auto px-4">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
             <div>

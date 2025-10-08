@@ -33,13 +33,13 @@ const ScheduleTestDriveForm = ({ car, onClose }) => {
   };
 
   return (
-    <Card className="w-[500px] rounded-2xl shadow-lg bg-white">
+    <Card className="w-full max-w-[92vw] sm:max-w-[480px] md:max-w-[560px] rounded-2xl shadow-lg bg-card text-card-foreground">
       <CardHeader>
         <CardTitle className="text-lg font-semibold">Schedule Test Drive</CardTitle>
-        <p className="text-sm text-gray-500 mt-1">
+        <p className="text-sm text-muted-foreground mt-1">
           {car.brand} {car.model} — {car.variant || ""}
         </p>
-        <p className="text-sm text-gray-500">
+        <p className="text-sm text-muted-foreground">
           📍 {car.seller?.fullName || "Premium Motors"} - {car.seller?.location || "Mumbai, Maharashtra"}
         </p>
       </CardHeader>
@@ -72,7 +72,7 @@ const ScheduleTestDriveForm = ({ car, onClose }) => {
           </div>
 
           {/* Contact Info */}
-          <div className="grid grid-cols-2 gap-3">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
             <div>
               <label className="text-sm font-medium">Your Name</label>
               <Input name="name" placeholder="Enter full name" value={formData.name} onChange={handleChange} required />
@@ -113,7 +113,7 @@ const ScheduleTestDriveForm = ({ car, onClose }) => {
           </div>
 
           {/* Guidelines */}
-          <div className="bg-blue-50 p-3 rounded-md text-sm text-gray-700">
+          <div className="bg-secondary p-3 rounded-md text-sm text-foreground/90">
             <p>• Please bring a valid driving license</p>
             <p>• Duration: 15–30 minutes</p>
             <p>• A representative will accompany you</p>
@@ -125,7 +125,7 @@ const ScheduleTestDriveForm = ({ car, onClose }) => {
             <Button variant="outline" type="button" onClick={onClose}>
               Cancel
             </Button>
-            <Button type="submit" className="bg-blue-600 hover:bg-blue-700 text-white">
+            <Button type="submit" className="bg-primary hover:bg-primary/90 text-primary-foreground">
               Schedule Test Drive
             </Button>
           </div>

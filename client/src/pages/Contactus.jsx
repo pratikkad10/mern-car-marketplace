@@ -9,11 +9,11 @@ import {
 
 const ContactUs = () => {
   return (
-    <div className="bg-gray-50">
+    <div className="bg-background text-foreground">
       {/* Navigation (same as your main page) */}
 
       {/* Hero Section */}
-      <section className="pt-24 pb-16 md:pt-32 md:pb-24 bg-gradient-to-r from-white via-white/80 to-white/20 bg-[url('https://images.unsplash.com/photo-1502161254066-6c74afbf07aa?q=80&w=1171&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D')] bg-cover bg-center">
+      <section className="pt-24 pb-16 md:pt-32 md:pb-24 bg-[url('https://images.unsplash.com/photo-1502161254066-6c74afbf07aa?q=80&w=1171&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D')] bg-cover bg-center">
         <div className="container mx-auto px-4 w-full">
           <div className="max-w-2xl">
             <h1 className="text-4xl md:text-5xl font-bold text-zinc-100 mb-4">
@@ -27,7 +27,7 @@ const ContactUs = () => {
       </section>
 
       {/* Contact Info Section */}
-      <section className="py-16 bg-white">
+      <section className="py-16 bg-card text-card-foreground">
         <div className="container mx-auto px-4">
           <div className="max-w-6xl mx-auto">
             <h2 className="text-3xl font-bold text-gray-900 mb-12 text-center">
@@ -35,83 +35,83 @@ const ContactUs = () => {
             </h2>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
               {/* Location */}
-              <div className="bg-gray-50 p-6 rounded-lg">
+              <div className="bg-background p-6 rounded-lg">
                 <div className="flex items-center gap-4 mb-4">
                   <div className="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center">
                     <MapPin className="w-6 h-6 text-primary" />
                   </div>
-                  <h3 className="text-xl font-semibold text-gray-900">
+                  <h3 className="text-xl font-semibold">
                     Our Locations
                   </h3>
                 </div>
                 <div className="space-y-4">
                   <div>
-                    <h4 className="font-medium text-gray-900">Headquarters</h4>
-                    <p className="text-gray-600">
+                    <h4 className="font-medium">Headquarters</h4>
+                    <p className="text-muted-foreground">
                       123 Auto Plaza, Bangalore, Karnataka 560001
                     </p>
                   </div>
                   <div>
-                    <h4 className="font-medium text-gray-900">Mumbai Branch</h4>
-                    <p className="text-gray-600">
+                    <h4 className="font-medium">Mumbai Branch</h4>
+                    <p className="text-muted-foreground">
                       456 Motor Street, Mumbai, Maharashtra 400001
                     </p>
                   </div>
                   <div>
-                    <h4 className="font-medium text-gray-900">Delhi Branch</h4>
-                    <p className="text-gray-600">
+                    <h4 className="font-medium">Delhi Branch</h4>
+                    <p className="text-muted-foreground">
                       789 Vehicle Lane, New Delhi 110001
                     </p>
                   </div>
                 </div>
               </div>
               {/* Contact */}
-              <div className="bg-gray-50 p-6 rounded-lg">
+              <div className="bg-background p-6 rounded-lg">
                 <div className="flex items-center gap-4 mb-4">
                   <div className="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center">
                     <Phone className="w-6 h-6 text-primary" />
                   </div>
-                  <h3 className="text-xl font-semibold text-gray-900">
+                  <h3 className="text-xl font-semibold">
                     Contact Details
                   </h3>
                 </div>
                 <div className="space-y-4">
                   <div>
-                    <h4 className="font-medium text-gray-900">Sales Inquiries</h4>
-                    <p className="text-gray-600">+91 80 1234 5678</p>
+                    <h4 className="font-medium">Sales Inquiries</h4>
+                    <p className="text-muted-foreground">+91 80 1234 5678</p>
                   </div>
                   <div>
-                    <h4 className="font-medium text-gray-900">Service Department</h4>
-                    <p className="text-gray-600">+91 80 9876 5432</p>
+                    <h4 className="font-medium">Service Department</h4>
+                    <p className="text-muted-foreground">+91 80 9876 5432</p>
                   </div>
                   <div>
-                    <h4 className="font-medium text-gray-900">General Inquiries</h4>
-                    <p className="text-gray-600">info@automarket.in</p>
+                    <h4 className="font-medium">General Inquiries</h4>
+                    <p className="text-muted-foreground">info@automarket.in</p>
                   </div>
                 </div>
               </div>
               {/* Hours */}
-              <div className="bg-gray-50 p-6 rounded-lg">
+              <div className="bg-background p-6 rounded-lg">
                 <div className="flex items-center gap-4 mb-4">
                   <div className="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center">
                     <Clock className="w-6 h-6 text-primary" />
                   </div>
-                  <h3 className="text-xl font-semibold text-gray-900">
+                  <h3 className="text-xl font-semibold">
                     Business Hours
                   </h3>
                 </div>
                 <div className="space-y-4">
                   <div className="flex justify-between">
-                    <span className="text-gray-900">Monday - Friday</span>
-                    <span className="text-gray-600">9:00 AM - 7:00 PM</span>
+                    <span>Monday - Friday</span>
+                    <span className="text-muted-foreground">9:00 AM - 7:00 PM</span>
                   </div>
                   <div className="flex justify-between">
-                    <span className="text-gray-900">Saturday</span>
-                    <span className="text-gray-600">10:00 AM - 6:00 PM</span>
+                    <span>Saturday</span>
+                    <span className="text-muted-foreground">10:00 AM - 6:00 PM</span>
                   </div>
                   <div className="flex justify-between">
-                    <span className="text-gray-900">Sunday</span>
-                    <span className="text-gray-600">11:00 AM - 4:00 PM</span>
+                    <span>Sunday</span>
+                    <span className="text-muted-foreground">11:00 AM - 4:00 PM</span>
                   </div>
                 </div>
               </div>
@@ -127,9 +127,9 @@ const ContactUs = () => {
       {/* ... same as your code ... */}
 
       {/* FAQ Section with Accordion */}
-      <section className="py-16 bg-gray-50">
+      <section className="py-16 bg-background">
         <div className="container mx-auto px-4">
-          <h2 className="text-3xl font-bold text-gray-900 mb-8 text-center">
+          <h2 className="text-3xl font-bold mb-8 text-center">
             Frequently Asked Questions
           </h2>
           <div className="max-w-3xl mx-auto">
