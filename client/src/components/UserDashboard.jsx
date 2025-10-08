@@ -16,6 +16,8 @@ import {
 } from "lucide-react";
 import { AuthContext } from "../context/AuthContext";
 import { useNavigate } from "react-router-dom";
+import { deleteCar } from "../services/api";
+import { toast } from "react-toastify";
 
 const UserDashboard = () => {
   const navigate = useNavigate();
@@ -29,6 +31,7 @@ const UserDashboard = () => {
   // Extract cars from user object
   const listedCars = user?.listedCars || [];
   const buyedCars = user?.buyedCars || [];
+  console.log("Listed Cars:", listedCars[0]._id);
 
   return (
     <div className="p-6 space-y-6">
@@ -74,7 +77,7 @@ const UserDashboard = () => {
       <Tabs defaultValue="listings" className="w-full mt-6">
         <TabsList className="grid grid-cols-2 w-[300px]">
           <TabsTrigger value="listings">My Listings</TabsTrigger>
-          <TabsTrigger value="purchases">Purchased Cars</TabsTrigger>
+          <TabsTrigger value="purchases">My Wishlist</TabsTrigger>
         </TabsList>
 
         {/* Listings */}
@@ -107,7 +110,23 @@ const UserDashboard = () => {
                       <Button variant="outline" size="sm">
                         <Edit className="h-4 w-4" /> Edit
                       </Button>
-                      <Button variant="destructive" size="sm">
+
+                      <Button
+                        onClick={async () => {
+                          try {
+                            if (window.confirm("Are you sure you want to delete this car?")) {
+                              const response = await deleteCar({ carId: car._id });
+                              toast.success("Car deleted successfully!");
+                              setTimeout(() => window.location.reload(), 1000); // refresh page after success
+                            }
+                          } catch (err) {
+                            toast.error("Failed to delete car!");
+                            console.error(err);
+                          }
+                        }}
+                        variant="destructive"
+                        size="sm"
+                      >
                         <Trash className="h-4 w-4" /> Delete
                       </Button>
                     </div>
@@ -121,7 +140,7 @@ const UserDashboard = () => {
         {/* Purchases */}
         <TabsContent value="purchases">
           {buyedCars.length === 0 ? (
-            <p className="text-gray-500 mt-4">No purchased cars yet.</p>
+            <p className="text-gray-500 mt-4">No liked cars yet.</p>
           ) : (
             <div className="grid md:grid-cols-2 gap-4 mt-4">
               {buyedCars.map((car, idx) => (
@@ -146,6 +165,10 @@ const UserDashboard = () => {
           )}
         </TabsContent>
       </Tabs>
+
+      <div>
+        
+      </div>
     </div>
   );
 };
