@@ -2,6 +2,7 @@ import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import User from "../models/User.model.js";
 import { signupSchema, loginSchema } from "../validation/User.validation.js";
+import UserModel from "../models/User.model.js";
 
 export const signup = async (req, res) => {
   try {
@@ -131,4 +132,47 @@ export const logoutUser = (req, res) => {
     res.status(500).json({ success: false, error: "Server error" });
   }
 };
+
+export const resetPassword = async (req, res) => {
+  try {
+    const {oldPassword, confirmPassword, newPassword } = req.body;
+
+    if (!oldPassword || !confirmPassword || !newPassword) {
+      return res.status(400).json({ success: false, error: "All fields are required" });
+    }
+
+    if (newPassword.length < 6) {
+      return res.status(400).json({ success: false, error: "Password must be at least 6 characters long" });
+    }
+
+    if (newPassword !== confirmPassword) {
+      return res.status(400).json({ success: false, error: "New password and confirm password do not match" });
+    }
+
+    const user = await UserModel.findById(req.user.id);
+    if (!user) {
+      return res.status(404).json({ success: false, error: "User not found" });
+    }
+
+    const isMatch = await bcrypt.compare(oldPassword, user.password);
+    if (!isMatch) {
+      return res.status(400).json({
+        success: false,
+        error: "Old password is incorrect",
+      });
+    }
+
+    const hashedPassword = await bcrypt.hash(newPassword, 10);
+    user.password = hashedPassword;
+    await user.save();
+
+    res.status(200).json({
+      success: true,
+      message: "Password changed successfully",
+    });
+
+  } catch (error) {
+    res.status(500).json({ success: false, error: "Server error! password change failed" });
+  }
+}; 
 
