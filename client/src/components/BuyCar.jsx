@@ -61,7 +61,7 @@ const BuyCar = () => {
         <CardHeader>
           <CardTitle>Find Your Next Vehicle</CardTitle>
         </CardHeader>
-        <CardContent className="bg-muted/80 rounded-md mx-8 py-10 grid grid-cols-1 md:grid-cols-5 gap-4 items-end">
+        <CardContent className="bg-muted/80 rounded-md mx-2 sm:mx-4 md:mx-8 py-6 sm:py-8 md:py-10 grid grid-cols-1 md:grid-cols-5 gap-4 items-end">
 
           <Select
             value={filters.type}
@@ -134,7 +134,7 @@ const BuyCar = () => {
       </Card>
 
       {/*Listed Cars*/}
-      <Card className="mt-4 mx-2">
+      <Card className="mt-4 mx-2 sm:mx-4 lg:mx-8">
         <CardHeader>
           <CardTitle className="flex justify-between">
             Listed Vehicles
@@ -144,17 +144,19 @@ const BuyCar = () => {
           </CardTitle>
         </CardHeader>
 
-        <CardContent className="flex gap-2 flex-wrap">
+        <CardContent className="px-2 sm:px-4 pb-6">
           {filteredCars.length > 0 ? (
-            filteredCars.map((car, idx) => (
-              <div
-                key={idx}
-                onClick={() => { setSelectedCar(car); setOpen(true); }}
-                className="cursor-pointer"
-              >
-                <Car car={car} />
-              </div>
-            ))
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 sm:gap-6 items-stretch">
+              {filteredCars.map((car, idx) => (
+                <div
+                  key={idx}
+                  onClick={() => { setSelectedCar(car); setOpen(true); }}
+                  className="cursor-pointer h-full"
+                >
+                  <Car car={car} />
+                </div>
+              ))}
+            </div>
           ) : (
             <p className="text-gray-500">No cars match your filters</p>
           )}
@@ -162,7 +164,7 @@ const BuyCar = () => {
       </Card>
 
       <Dialog open={open} onOpenChange={setOpen}>
-        <DialogContent className="min-w-3xl max-h-[88vh] overflow-y-auto scrollbar-hide">
+        <DialogContent className="max-w-[92vw] sm:max-w-[85vw] md:max-w-[75vw] lg:max-w-[65vw] xl:max-w-[60vw] w-full mx-auto max-h-[88vh] overflow-y-auto scrollbar-hide">
           <DialogHeader>
             <DialogTitle>{selectedCar?.carName}</DialogTitle>
           </DialogHeader>
