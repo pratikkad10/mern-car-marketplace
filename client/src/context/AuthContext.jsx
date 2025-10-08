@@ -51,7 +51,7 @@ export function AuthProvider({ children }) {
       toast.success(`Welcome, ${loggedInUser.fullName}`);
       console.log("Login response:", res.data);
 
-      navigate("/user/dashboard"); 
+      navigate("/"); 
     } catch (err) {
       console.error("Login error:", err);
       toast.error(err.response?.data?.message || "Login failed");
