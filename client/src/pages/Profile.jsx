@@ -11,29 +11,49 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "../components/ui/dialog";
-import AlertMessage from "../components/ui/AlertMessage";
+import { toast } from "react-toastify";
 import { AuthContext } from "../context/AuthContext";
 import UserDashboard from "../components/UserDashboard";
+import { resetPassword } from "../services/api";
 
 const Profile = () => {
   const [oldPassword, setOldPassword] = useState("");
   const [newPassword, setNewPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
-  const [status, setStatus] = useState(null);
+  const [isDialogOpen, setIsDialogOpen] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
   const { logout, user, loading } = useContext(AuthContext);
   const navigate = useNavigate();
 
-  console.log("User from profile component ", user);
-  
-
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
+
     if (newPassword !== confirmPassword) {
-      setStatus("error");
+      toast.error("New passwords do not match. Please try again.");
       return;
     }
-    setStatus("success");
+
+    try {
+      setIsLoading(true);
+      await resetPassword({ oldPassword, newPassword, confirmPassword });
+
+      toast.success("Password changed successfully! 🎉");
+
+      // Reset form
+      setOldPassword("");
+      setNewPassword("");
+      setConfirmPassword("");
+
+      // Close the dialog
+      setIsDialogOpen(false);
+    } catch (error) {
+      toast.error(
+        error.response?.data?.message || "Error changing password. Please try again."
+      );
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   const handleProfilePicUpload = (event) => {
@@ -56,7 +76,6 @@ const Profile = () => {
       <Card className="overflow-hidden">
         {/* Banner / Header */}
         <div className="h-32 bg-gradient-to-r from-blue-100 to-blue-200 relative">
-          {/* Profile Image with Upload Button */}
           <div className="absolute -bottom-12 left-6 relative w-24 h-24">
             <img
               src={user.profilePic || "https://i.pravatar.cc/150?img=1"}
@@ -80,7 +99,6 @@ const Profile = () => {
         </div>
 
         <CardHeader className="mt-14 flex flex-col md:flex-row justify-between items-start md:items-center px-6">
-          {/* User Info */}
           <div>
             <h2 className="text-2xl font-bold flex items-center gap-2">
               {user.fullName || "Unnamed User"}{" "}
@@ -97,82 +115,61 @@ const Profile = () => {
           {/* Actions */}
           <div className="flex flex-col gap-2">
             <div className="flex gap-3 mt-4 md:mt-0">
-              <Dialog>
+              <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
                 <DialogTrigger asChild>
                   <Button variant="outline">Change Password</Button>
                 </DialogTrigger>
                 <DialogContent>
                   <DialogHeader>
                     <DialogTitle>Change Password</DialogTitle>
-                    <div>
-                      <div className="bg-white p-6 rounded-2xl shadow-md w-96">
-                        <AlertMessage
-                          type={status}
-                          title={
-                            status === "success"
-                              ? "Password Changed Successfully"
-                              : status === "error"
-                              ? "Error Changing Password"
-                              : ""
-                          }
-                          description={
-                            status === "success"
-                              ? "Your new password has been saved."
-                              : status === "error"
-                              ? "New passwords do not match. Please try again."
-                              : ""
-                          }
+                    <form onSubmit={handleSubmit} className="space-y-4 mt-4">
+                      <div>
+                        <label className="block text-sm font-medium mb-1">
+                          Old Password
+                        </label>
+                        <input
+                          type="password"
+                          value={oldPassword}
+                          onChange={(e) => setOldPassword(e.target.value)}
+                          className="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                          required
                         />
-
-                        <form onSubmit={handleSubmit} className="space-y-4">
-                          <div>
-                            <label className="block text-sm font-medium mb-1">
-                              Old Password
-                            </label>
-                            <input
-                              type="password"
-                              value={oldPassword}
-                              onChange={(e) => setOldPassword(e.target.value)}
-                              className="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-                              required
-                            />
-                          </div>
-
-                          <div>
-                            <label className="block text-sm font-medium mb-1">
-                              New Password
-                            </label>
-                            <input
-                              type="password"
-                              value={newPassword}
-                              onChange={(e) => setNewPassword(e.target.value)}
-                              className="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-                              required
-                            />
-                          </div>
-
-                          <div>
-                            <label className="block text-sm font-medium mb-1">
-                              Re-enter Password
-                            </label>
-                            <input
-                              type="password"
-                              value={confirmPassword}
-                              onChange={(e) => setConfirmPassword(e.target.value)}
-                              className="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-                              required
-                            />
-                          </div>
-
-                          <button
-                            type="submit"
-                            className="w-full bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700 transition"
-                          >
-                            Change Password
-                          </button>
-                        </form>
                       </div>
-                    </div>
+
+                      <div>
+                        <label className="block text-sm font-medium mb-1">
+                          New Password
+                        </label>
+                        <input
+                          type="password"
+                          value={newPassword}
+                          onChange={(e) => setNewPassword(e.target.value)}
+                          className="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                          required
+                        />
+                      </div>
+
+                      <div>
+                        <label className="block text-sm font-medium mb-1">
+                          Re-enter Password
+                        </label>
+                        <input
+                          type="password"
+                          value={confirmPassword}
+                          onChange={(e) => setConfirmPassword(e.target.value)}
+                          className="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                          required
+                        />
+                      </div>
+
+                      <button
+                        type="submit"
+                        disabled={isLoading}
+                        className="w-full bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700 transition disabled:opacity-50"
+                      >
+                        {isLoading ? "Changing..." : "Change Password"}
+                      </button>
+                    </form>
                   </DialogHeader>
                 </DialogContent>
               </Dialog>
@@ -181,20 +178,10 @@ const Profile = () => {
                 Logout
               </Button>
             </div>
-            {/* <div className="w-full">
-              <Button
-                onClick={() => navigate("/user/dashboard")}
-                className="w-full bg-blue-400 hover:bg-blue-500 text-white hover:text-white"
-                variant="outline"
-              >
-                Dashboard
-              </Button>
-            </div> */}
           </div>
         </CardHeader>
 
         <CardContent className="px-6 pb-6">
-          {/* Tags */}
           <div className="flex flex-wrap gap-3 mt-4">
             <Badge variant="secondary" className="flex items-center gap-2">
               <Users size={16} /> My Cars: {user?.myCars?.length || 0}
@@ -210,7 +197,6 @@ const Profile = () => {
             </Badge>
           </div>
 
-          {/* Social Links */}
           <div className="flex gap-5 mt-6 text-muted-foreground">
             <a href="#" className="hover:text-blue-500">
               <Globe size={20} />
@@ -225,11 +211,9 @@ const Profile = () => {
         </CardContent>
       </Card>
 
-
-        <div>
-            <UserDashboard/>
-        </div>
-
+      <div>
+        <UserDashboard />
+      </div>
     </div>
   );
 };
