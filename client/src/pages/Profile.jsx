@@ -101,14 +101,14 @@ const Profile = () => {
         <CardHeader className="mt-14 flex flex-col md:flex-row justify-between items-start md:items-center px-6">
           <div>
             <h2 className="text-2xl font-bold flex items-center gap-2">
-              {user.fullName || "Unnamed User"}{" "}
+              {user?.fullName || "Unnamed User"}{" "}
               <span className="text-blue-500">✔</span>
             </h2>
-            <p className="text-muted-foreground mt-1">{user.username || ""}</p>
-            <p className="text-muted-foreground mt-1">{user.email || ""}</p>
-            <p className="text-muted-foreground">{user.phone || ""}</p>
+            <p className="text-muted-foreground mt-1">{user?.username || ""}</p>
+            <p className="text-muted-foreground mt-1">{user?.email || ""}</p>
+            <p className="text-muted-foreground">{user?.phone || ""}</p>
             <p className="text-muted-foreground capitalize">
-              Gender: {user.gender || "N/A"}
+              Gender: {user?.gender || "N/A"}
             </p>
           </div>
 
@@ -192,7 +192,7 @@ const Profile = () => {
             <Badge variant="secondary" className="flex items-center gap-2">
               <Calendar size={16} /> Joined:{" "}
               {user?.createdAt
-                ? new Date(user.createdAt).getFullYear()
+                ? new Date(user?.createdAt).getFullYear()
                 : "2023"}
             </Badge>
           </div>
