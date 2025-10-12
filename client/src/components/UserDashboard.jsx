@@ -31,7 +31,7 @@ const UserDashboard = () => {
   // Extract cars from user object
   const listedCars = user?.listedCars || [];
   const buyedCars = user?.buyedCars || [];
-  console.log("Listed Cars:", listedCars[0]._id);
+  // console.log("Listed Cars:", listedCars[0]?._id);
 
   return (
     <div className="p-4 sm:p-6 space-y-6 max-w-6xl mx-auto">
@@ -91,8 +91,8 @@ const UserDashboard = () => {
                   {/* Image */}
                   <div className="h-52 w-full relative">
                     <img
-                      src={car.images[0] || "/placeholder-car.jpg"}
-                      alt={car.model || "Car"}
+                      src={car?.images[0] || "/placeholder-car.jpg"}
+                      alt={car?.model || "Car"}
                       className="h-full w-full object-cover rounded-t-lg"
                     />
                   </div>
@@ -101,9 +101,9 @@ const UserDashboard = () => {
                   <CardContent className="p-4 flex-1 flex flex-col justify-between">
                     <div>
                       <h3 className="font-semibold text-lg">
-                        {car.brand} {car.model}
+                        {car?.brand} {car?.model}
                       </h3>
-                      <p className="text-gray-500 text-sm mt-1">₹{car.price.toLocaleString()}</p>
+                      <p className="text-gray-500 text-sm mt-1">₹{car?.price.toLocaleString()}</p>
                     </div>
 
                     <div className="flex flex-col sm:flex-row sm:justify-between gap-2 mt-4">
