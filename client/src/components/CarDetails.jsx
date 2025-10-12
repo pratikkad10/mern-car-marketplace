@@ -223,7 +223,7 @@ const CarDetails = ({ car }) => {
                             </Button>
                         </DialogTrigger>
 
-                        <DialogContent className="p-0 border-none bg-transparent shadow-none">
+                        <DialogContent className="p-0 border-none bg-transparent shadow-none dialog-scrollable">
                             {/* Accessibility fix */}
                             <VisuallyHidden>
                                 <DialogTitle>Contact Seller Form</DialogTitle>
@@ -341,7 +341,7 @@ const CarDetails = ({ car }) => {
                                 </Button>
                             </DialogTrigger>
 
-                        <DialogContent className="p-0 border-none bg-transparent shadow-none">
+                        <DialogContent className="p-0 border-none bg-transparent shadow-none dialog-scrollable">
                                 <VisuallyHidden>
                                     <DialogTitle>Schedule Test Drive</DialogTitle>
                                 </VisuallyHidden>
