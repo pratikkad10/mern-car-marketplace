@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const api = axios.create({
-  baseURL: "https://carmarketplace-backend.vercel.app/",
+  baseURL: "https://car-marketplace-frontend-ktxy.onrender.com/",
   withCredentials: true, // send cookies automatically
 });
 
