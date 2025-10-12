@@ -78,8 +78,8 @@ const Profile = () => {
         <div className="h-32 bg-gradient-to-r from-blue-100 to-blue-200 relative">
           <div className="absolute -bottom-12 left-6 relative w-24 h-24">
             <img
-              src={user.profilePic || "https://i.pravatar.cc/150?img=1"}
-              alt={user.fullName || "User"}
+              src={user?.profilePic || "https://i.pravatar.cc/150?img=1"}
+              alt={user?.fullName || "User"}
               className="w-24 h-24 rounded-full border-4 border-white shadow-md"
             />
             <label
