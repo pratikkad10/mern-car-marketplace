@@ -12,6 +12,7 @@ export function CarProvider({ children }) {
 
     const { setLoading } = useContext(AuthContext);
     const [cars, setCars] = useState([]);
+    const [carsLoading, setCarsLoading] = useState(false);
 
     const createCar = async (data) => {
         try {
@@ -28,7 +29,7 @@ export function CarProvider({ children }) {
 
     const getCars = async ()=>{
       try {
-        // setLoading(true)
+        setCarsLoading(true)
         const response= await getAllCars()
         console.log(response);
         
@@ -36,7 +37,7 @@ export function CarProvider({ children }) {
       } catch (error) {
         console.log(error);
       } finally{
-        // setLoading(false)
+        setCarsLoading(false)
       }
     }
 
@@ -44,7 +45,8 @@ export function CarProvider({ children }) {
      createCar,
      getCars,
      cars,
-     setCars
+     setCars,
+     carsLoading
   };
 
   return (

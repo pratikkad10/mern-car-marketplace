@@ -95,7 +95,7 @@ const ContactSellerForm = ({car,  seller }) => {
     };
 
     return (
-        <Card className="rounded-2xl shadow-md bg-card text-card-foreground w-full max-w-[92vw] sm:max-w-[420px] md:max-w-[480px] max-h-[85vh] overflow-y-auto">
+        <Card className="rounded-2xl shadow-lg bg-black/20 backdrop-blur-md border border-white/10 text-white w-full max-w-[92vw] sm:max-w-[420px] md:max-w-[480px] overflow-hidden">
             <CardHeader className="flex flex-row items-center justify-between pb-2 border-b">
                 <CardTitle>Contact Seller</CardTitle>
                 <DialogClose asChild>
@@ -111,11 +111,11 @@ const ContactSellerForm = ({car,  seller }) => {
                     <p className="font-medium text-base">
                         {seller?.fullName || "Premium Motors Delhi"}
                     </p>
-                    <div className="flex items-center gap-2 text-sm text-muted-foreground">
+                    <div className="flex items-center gap-2 text-sm text-white/70">
                         <Phone className="h-4 w-4" />
                         <span>{seller?.phone || "+91 98765 43210"}</span>
                     </div>
-                    <div className="flex items-center gap-2 text-sm text-muted-foreground">
+                    <div className="flex items-center gap-2 text-sm text-white/70">
                         <MapPin className="h-4 w-4" />
                         <span>{seller?.location || "Mumbai, Maharashtra"}</span>
                     </div>
@@ -145,7 +145,7 @@ const ContactSellerForm = ({car,  seller }) => {
                 {/* Form */}
                 <form onSubmit={handleSubmit} className="space-y-3 mt-4">
                     <div>
-                        <label className="text-sm font-medium text-foreground">Your Name</label>
+                        <label className="text-sm font-medium text-white">Your Name</label>
                         <Input
                             name="name"
                             placeholder="Enter your name"
@@ -155,7 +155,7 @@ const ContactSellerForm = ({car,  seller }) => {
                         />
                     </div>
                     <div>
-                        <label className="text-sm font-medium text-foreground">Your Phone</label>
+                        <label className="text-sm font-medium text-white">Your Phone</label>
                         <Input
                             name="phone"
                             placeholder="Enter your phone number"
@@ -165,7 +165,7 @@ const ContactSellerForm = ({car,  seller }) => {
                         />
                     </div>
                     <div>
-                        <label className="text-sm font-medium text-foreground">Message</label>
+                        <label className="text-sm font-medium text-white">Message</label>
                         <Textarea
                             name="message"
                             placeholder="I'm interested in this car. Please contact me."
@@ -173,7 +173,7 @@ const ContactSellerForm = ({car,  seller }) => {
                             value={formData.message}
                             onChange={handleChange}
                         />
-                        <p className="text-xs text-muted-foreground mt-1">{charCount}/500 characters</p>
+                        <p className="text-xs text-white/70 mt-1">{charCount}/500 characters</p>
                     </div>
                     <Button
                         type="submit"
@@ -183,7 +183,7 @@ const ContactSellerForm = ({car,  seller }) => {
                     </Button>
                 </form>
 
-                <p className="text-xs text-muted-foreground mt-2 text-center">
+                <p className="text-xs text-white/70 mt-2 text-center">
                     ℹ️ Your contact details will be shared with the seller. They will contact you directly.
                 </p>
             </CardContent>
@@ -203,7 +203,7 @@ const CarDetails = ({ car }) => {
             {/* Price + Buttons */}
             <div className="mt-4 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
                 <div>
-                    <p className="text-sm text-gray-500">Price</p>
+                    <p className="text-sm text-white/70">Price</p>
                     <p className="font-bold text-xl">₹{car.price}</p>
                 </div>
 
@@ -216,22 +216,25 @@ const CarDetails = ({ car }) => {
                     </Button>
 
                     {/* Contact Seller Dialog (Accessibility Fixed) */}
-                    <Dialog className="dialog-scrollable">
+                    <Dialog>
                         <DialogTrigger asChild>
-                            <Button className="bg-blue-500 text-white">
+                            <Button className="bg-white text-black hover:bg-white/90">
                                 <ContactIcon className="mr-2 h-4 w-4" /> Contact Seller
                             </Button>
                         </DialogTrigger>
 
-                        <DialogContent className="p-0 border-none bg-transparent shadow-none dialog-scrollable">
+                        {/* Constrain the dialog content so it doesn't force the page to scroll.
+                            Use a centered container with a sensible max-height and internal scrolling
+                            only when the form is taller than the viewport. Styling only — no logic changes. */}
+                        <DialogContent showCloseButton={false} className="p-0 border-none bg-transparent shadow-none max-w-[500px] max-h-[95vh] overflow-hidden">
                             {/* Accessibility fix */}
                             <VisuallyHidden>
                                 <DialogTitle>Contact Seller Form</DialogTitle>
                             </VisuallyHidden>
 
-                            <div className="w-full flex justify-center items-start px-3 py-4 sm:px-4 mb-4">
-                                <ContactSellerForm car={car} seller={car.seller} />
-                            </div>
+                                <div className="w-full flex justify-center items-center">
+                                    <ContactSellerForm car={car} seller={car.seller} />
+                                </div>
                         </DialogContent>
                     </Dialog>
                 </div>
@@ -257,7 +260,7 @@ const CarDetails = ({ car }) => {
                                 variant="outline"
                                 className="flex flex-col items-start p-3 w-full bg-muted/40"
                             >
-                                <p className="text-xs text-gray-500">{label}</p>
+                                <p className="text-xs text-white/70">{label}</p>
                                 <p className="font-medium">{value}</p>
                             </Badge>
                         ))}
@@ -306,20 +309,20 @@ const CarDetails = ({ car }) => {
             {/* Seller Information */}
             <div className="mt-6">
                 <h3 className="font-semibold mb-3">Seller Information</h3>
-                <Card className="rounded-2xl shadow-sm bg-gray-50">
+                <Card className="rounded-2xl shadow-sm bg-black/20 backdrop-blur-md border border-white/10 text-white">
                     <CardContent className="p-4 ">
                         <div className="flex items-center mb-4">
-                            <div className="w-12 h-12 rounded-full bg-gray-200 flex items-center justify-center">
-                                <Store className="w-6 h-6 text-gray-600" />
+                            <div className="w-12 h-12 rounded-full bg-white/20 flex items-center justify-center">
+                                <Store className="w-6 h-6 text-white" />
                             </div>
                             <div className="ml-4">
                                 <h4 className="font-semibold">{car.seller.fullName}</h4>
                                 {/* <h4 className="font-semibold">{car.seller._id}</h4> */}
-                                <p className="text-sm text-gray-500">{car.seller.email}</p>
+                                <p className="text-sm text-white/70">{car.seller.email}</p>
                             </div>
                         </div>
 
-                        <div className="flex flex-col sm:flex-row sm:items-center sm:space-x-6 text-sm text-gray-600 mb-4">
+                        <div className="flex flex-col sm:flex-row sm:items-center sm:space-x-6 text-sm text-white/70 mb-4">
                             <div className="flex items-center mb-2 sm:mb-0">
                                 <Phone className="w-4 h-4 mr-2" />
                                 <span>{car.seller.phone}</span>
@@ -336,16 +339,16 @@ const CarDetails = ({ car }) => {
                         {/* Schedule Test Drive Dialog */}
                         <Dialog>
                             <DialogTrigger asChild>
-                                <Button className="w-full mt-2 bg-blue-500 hover:bg-blue-600 text-white font-semibold rounded-md">
+                                <Button className="w-full mt-2 bg-white hover:bg-white/90 text-black rounded-md">
                                     Schedule Test Drive
                                 </Button>
                             </DialogTrigger>
 
-                        <DialogContent className="p-0 border-none bg-transparent shadow-none dialog-scrollable">
+                        <DialogContent showCloseButton={false} className="p-0 border-none bg-transparent shadow-none max-w-[600px] max-h-[95vh] overflow-hidden flex flex-col">
                                 <VisuallyHidden>
                                     <DialogTitle>Schedule Test Drive</DialogTitle>
                                 </VisuallyHidden>
-                            <div className="w-full flex justify-center items-start px-3 py-4 sm:px-4">
+                            <div className="w-full flex justify-center -mt-8">
                               <ScheduleTestDriveForm car={car} />
                             </div>
                             </DialogContent>

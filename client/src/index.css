@@ -119,7 +119,28 @@
     @apply border-border outline-ring/50;
   }
   body {
-    @apply bg-background text-foreground min-h-dvh;
+    @apply text-foreground min-h-dvh;
+    /* Light mode - elegant white to lavender gradient */
+    background: 
+      radial-gradient(ellipse 1200px 800px at 50% 20%, rgba(201, 191, 251, 0.08), transparent 70%),
+      radial-gradient(ellipse 900px 600px at 80% 80%, rgba(179, 157, 245, 0.12), transparent 65%),
+      radial-gradient(ellipse 700px 500px at 20% 70%, rgba(214, 204, 255, 0.06), transparent 60%),
+      linear-gradient(180deg, #F8F8FA 0%, #F8F8FA 30%, rgba(201, 191, 251, 0.15) 70%, rgba(179, 157, 245, 0.25) 100%);
+    background-blend-mode: soft-light, overlay, multiply, normal;
+    background-attachment: fixed;
+  }
+  
+  .dark body {
+    /* Dark mode - cinematic gradients */
+    background: 
+      radial-gradient(ellipse 800px 600px at 88% 12%, rgba(216, 180, 180, 0.08), transparent 65%),
+      radial-gradient(ellipse 700px 500px at 15% 88%, rgba(158, 164, 199, 0.12), transparent 60%),
+      radial-gradient(ellipse 600px 400px at 42% 75%, rgba(255, 140, 80, 0.06), transparent 55%),
+      radial-gradient(ellipse 500px 350px at 78% 45%, rgba(120, 200, 140, 0.04), transparent 50%),
+      radial-gradient(ellipse 900px 700px at 55% 35%, rgba(27, 29, 36, 0.9), transparent 75%),
+      linear-gradient(135deg, #080808 0%, #1b1d24 35%, #0f1015 70%, #0a0a0a 100%);
+    background-blend-mode: soft-light, overlay, multiply, screen, normal, normal;
+    background-attachment: fixed;
   }
   #root { @apply min-h-dvh flex flex-col; }
 }
@@ -163,4 +184,22 @@
 
 .dialog-scrollable {
   scroll-behavior: smooth;
+}
+
+/* Infinite scroll animation for reviews */
+@keyframes scroll {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+.animate-scroll {
+  animation: scroll 30s linear infinite;
+}
+
+.animate-scroll:hover {
+  animation-play-state: paused;
 }

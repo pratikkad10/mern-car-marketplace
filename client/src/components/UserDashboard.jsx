@@ -98,7 +98,7 @@ const UserDashboard = () => {
                   </div>
 
                   {/* Card Content */}
-                  <CardContent className="p-4 flex-1 flex flex-col justify-between">
+                  <CardContent className="p-4 flex-1 flex flex-col justify-between ">
                     <div>
                       <h3 className="font-semibold text-lg">
                         {car?.brand} {car?.model}

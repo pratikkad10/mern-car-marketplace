@@ -113,38 +113,48 @@ const Sellform = () => {
   };
 
   return (
-    <div className="min-h-screen bg-background p-4 sm:p-6 md:p-8">
+    <div className="min-h-screen p-4 sm:p-6 md:p-8" style={{
+      background: `
+        radial-gradient(ellipse 800px 600px at 88% 12%, rgba(216, 180, 180, 0.08), transparent 65%),
+        radial-gradient(ellipse 700px 500px at 15% 88%, rgba(158, 164, 199, 0.12), transparent 60%),
+        radial-gradient(ellipse 600px 400px at 42% 75%, rgba(255, 140, 80, 0.06), transparent 55%),
+        radial-gradient(ellipse 500px 350px at 78% 45%, rgba(120, 200, 140, 0.04), transparent 50%),
+        radial-gradient(ellipse 900px 700px at 55% 35%, rgba(27, 29, 36, 0.9), transparent 75%),
+        linear-gradient(135deg, #080808 0%, #1b1d24 35%, #0f1015 70%, #0a0a0a 100%)
+      `,
+      backgroundBlendMode: 'soft-light, overlay, multiply, screen, normal, normal'
+    }}>
       <form onSubmit={handleSubmit} className="max-w-5xl mx-auto">
         {/* HEADER */}
         <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
           <div className="flex items-center gap-4 ">
-            <div className="rounded-full bg-zinc-200 p-4 cursor-pointer">
-              <ArrowLeft onClick={() => navigate(-1)} className="w-6 h-6   cursor-pointer" />
+            <div className="rounded-full bg-black/30 backdrop-blur-lg border border-white/20 p-4 cursor-pointer hover:bg-black/40 transition-all shadow-lg">
+              <ArrowLeft onClick={() => navigate(-1)} className="w-6 h-6 text-white cursor-pointer" />
 
             </div>
             <div>
-              <h1 className="font-bold text-2xl sm:text-3xl text-zinc-950/85">
+              <h1 className="font-bold text-2xl sm:text-3xl text-white">
                 Sell Your Car
               </h1>
-              <p className="text-zinc-950/80 text-sm sm:text-base">
+              <p className="text-white/80 text-sm sm:text-base">
                 Complete the form below to list your vehicle on AutoMarket
               </p>
             </div>
           </div>
         </div>
 
-        <div className="bg-card text-card-foreground p-4 sm:p-6 md:p-8 rounded-xl mt-6 sm:mt-10 flex flex-col gap-6">
+        <div className="bg-black/20 backdrop-blur-md border border-white/10 text-white p-4 sm:p-6 md:p-8 rounded-xl mt-6 sm:mt-10 flex flex-col gap-6">
           {/* BASIC INFO */}
           <div className="flex items-center gap-2">
             <CarFront className="bg-blue-500 p-1 h-8 w-8 rounded-full text-white" />
-            <span className="text-lg font-semibold text-foreground">
+            <span className="text-lg font-semibold text-white">
               Basic Information
             </span>
           </div>
 
           <div className="flex flex-col gap-4">
             <div>
-              <p className="text-sm py-1 text-muted-foreground">Car Name</p>
+              <p className="text-sm py-1 text-white/70">Car Name</p>
               <Input
                 type="text"
                 placeholder="e.g BMW 5 Series 530i M Sport"
@@ -158,7 +168,7 @@ const Sellform = () => {
             {/* Brand + Model */}
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div>
-                <p className="text-sm py-1 text-muted-foreground">Brand</p>
+                <p className="text-sm py-1 text-white/70">Brand</p>
                 <DropdownMenu>
                   <DropdownMenuTrigger className="border px-3 py-2 rounded-md w-full text-left">
                     {formData.brand || "Select Brand"}
@@ -180,7 +190,7 @@ const Sellform = () => {
                 </DropdownMenu>
               </div>
               <div>
-                <p className="text-sm py-1 text-muted-foreground">Model</p>
+                <p className="text-sm py-1 text-white/70">Model</p>
                 <Input
                   type="text"
                   placeholder="e.g 5 Series"
@@ -195,7 +205,7 @@ const Sellform = () => {
             {/* Year + Color */}
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div>
-                <p className="text-sm py-1 text-muted-foreground">Year</p>
+                <p className="text-sm py-1 text-white/70">Year</p>
                 <Input
                   type="text"
                   placeholder="e.g 2018"
@@ -206,7 +216,7 @@ const Sellform = () => {
                 />
               </div>
               <div>
-                <p className="text-sm py-1 text-muted-foreground">Color</p>
+                <p className="text-sm py-1 text-white/70">Color</p>
                 <Input
                   type="text"
                   placeholder="e.g Mineral White"
@@ -220,7 +230,7 @@ const Sellform = () => {
 
             {/* Car Type */}
             <div>
-              <p className="text-sm py-1 text-muted-foreground">Car Type</p>
+              <p className="text-sm py-1 text-white/70">Car Type</p>
               <RadioGroup
                 onValueChange={(val) =>
                   setFormData({ ...formData, carType: val })
@@ -235,7 +245,7 @@ const Sellform = () => {
                       <Label htmlFor={type}>
                         <div className="h-18 w-20 p-3 flex flex-col gap-2 items-center justify-center border rounded-lg">
                           <CarFrontIcon />
-                          <span className="text-foreground text-sm">{type}</span>
+                          <span className="text-white text-sm">{type}</span>
                         </div>
                       </Label>
                     </div>
@@ -247,7 +257,7 @@ const Sellform = () => {
             {/* TECHNICAL DETAILS */}
           <div className="flex items-center gap-2 mt-6">
               <Settings className="bg-blue-500 p-1 h-8 w-8 rounded-full text-white" />
-              <span className="text-lg font-semibold text-foreground">
+              <span className="text-lg font-semibold text-white">
                 Technical Details
               </span>
             </div>
@@ -255,7 +265,7 @@ const Sellform = () => {
             {/* Price + Mileage */}
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div>
-                <p className="text-sm py-1 text-muted-foreground">Price (₹)</p>
+                <p className="text-sm py-1 text-white/70">Price (₹)</p>
                 <Input
                   type="text"
                   placeholder="e.g 4500000"
@@ -266,7 +276,7 @@ const Sellform = () => {
                 />
               </div>
               <div>
-                <p className="text-sm py-1 text-muted-foreground">Mileage (km)</p>
+                <p className="text-sm py-1 text-white/70">Mileage (km)</p>
                 <Input
                   type="text"
                   placeholder="e.g 15000"
@@ -280,7 +290,7 @@ const Sellform = () => {
 
             {/* Fuel Type */}
             <div>
-              <p className="text-sm py-1 text-muted-foreground">Fuel Type</p>
+              <p className="text-sm py-1 text-white/70">Fuel Type</p>
               <RadioGroup
                 onValueChange={(val) =>
                   setFormData({ ...formData, fuelType: val })
@@ -294,7 +304,7 @@ const Sellform = () => {
                     <Label htmlFor={fuel}>
                       <div className="h-18 w-20 p-3 flex flex-col gap-2 items-center justify-center border rounded-lg">
                         <FuelIcon />
-                        <span className="text-sm text-foreground">{fuel}</span>
+                        <span className="text-sm text-white">{fuel}</span>
                       </div>
                     </Label>
                   </div>
@@ -304,7 +314,7 @@ const Sellform = () => {
 
             {/* Transmission */}
             <div>
-              <p className="text-sm py-1 text-muted-foreground">Transmission</p>
+              <p className="text-sm py-1 text-white/70">Transmission</p>
               <DropdownMenu>
                 <DropdownMenuTrigger className="border px-3 py-2 rounded-md w-full text-left">
                   {formData.transmission || "Select Transmission"}
@@ -328,7 +338,7 @@ const Sellform = () => {
 
             {/* Features */}
             <div>
-              <p className="text-sm py-1 text-muted-foreground">Features</p>
+              <p className="text-sm py-1 text-white/70">Features</p>
               <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-3">
                 {carFeatures.map((feature) => (
                   <label key={feature} className="flex items-center gap-2">
@@ -336,7 +346,7 @@ const Sellform = () => {
                       checked={formData.features.includes(feature)}
                       onCheckedChange={() => toggleFeature(feature)}
                     />
-                    <span className="text-sm text-foreground">{feature}</span>
+                    <span className="text-sm text-white">{feature}</span>
                   </label>
                 ))}
               </div>
@@ -344,7 +354,7 @@ const Sellform = () => {
 
             {/* Media */}
             <div className="space-y-4 mt-4">
-              <Label className="text-sm mb-1 text-muted-foreground">Images</Label>
+              <Label className="text-sm mb-1 text-white/70">Images</Label>
               <Input
                 type="file"
                 multiple
@@ -373,7 +383,7 @@ const Sellform = () => {
 
             {/* Description */}
             <div>
-              <Label className="text-sm mb-1 mt-2 text-muted-foreground">Description</Label>
+              <Label className="text-sm mb-1 mt-2 text-white/70">Description</Label>
               <textarea
                 rows="6"
                 placeholder="Describe your vehicle..."
@@ -381,13 +391,13 @@ const Sellform = () => {
                 onChange={(e) =>
                   setFormData({ ...formData, description: e.target.value })
                 }
-                className="w-full px-4 py-3 border rounded focus:outline-none bg-background text-foreground"
+                className="w-full px-4 py-3 border rounded focus:outline-none bg-white/10 text-white border-white/20"
               ></textarea>
             </div>
 
             {/* Location */}
             <div>
-              <p className="text-sm mb-1 mt-2 text-muted-foreground">Location</p>
+              <p className="text-sm mb-1 mt-2 text-white/70">Location</p>
               <Input
                 placeholder="e.g. Mumbai, Maharashtra, India"
                 value={formData.location}
@@ -403,7 +413,7 @@ const Sellform = () => {
             {/* Contact */}
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-2">
               <div>
-                <p className="text-sm py-1 text-muted-foreground">Phone Number</p>
+                <p className="text-sm py-1 text-white/70">Phone Number</p>
                 <Input
                   type="text"
                   placeholder="e.g 9845311553"
@@ -414,7 +424,7 @@ const Sellform = () => {
                 />
               </div>
               <div>
-                <p className="text-sm py-1 text-muted-foreground">Email</p>
+                <p className="text-sm py-1 text-white/70">Email</p>
                 <Input
                   type="text"
                   placeholder="e.g rahul@gmail.com"
@@ -435,7 +445,7 @@ const Sellform = () => {
               <Button variant="outline">Cancel</Button>
               <Button
                 type="submit"
-                className="bg-blue-500 text-white hover:text-zinc-950"
+                className="bg-white text-black hover:bg-white/90"
               >
                 Add Car
               </Button>

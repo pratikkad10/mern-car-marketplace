@@ -40,7 +40,7 @@ function Navbar() {
         {/* Logo */}
         <NavLink
           to="/"
-          className="[font-family:var(--font-logo)] text-blue-500 dark:text-blue-400 logo cursor-pointer text-xl"
+          className="[font-family:var(--font-logo)] text-white/90 hover:text-white logo cursor-pointer text-xl transition-colors"
         >
           AutoMarket
         </NavLink>

@@ -5,12 +5,12 @@ import { Fuel, FuelIcon, Settings } from 'lucide-react'
 
 const Car = ({car}) => {
     return (
-        <div className='w-full h-full rounded-xl shadow hover:shadow-md overflow-hidden bg-card text-card-foreground flex flex-col'>
+        <div className='w-full h-full rounded-xl shadow-lg hover:shadow-xl overflow-hidden bg-white text-black dark:bg-none backdrop-blur-md border border-white/10 dark:text-white flex flex-col transition-all duration-300 hover:bg-black/10 hover:translate-2'>
             <div className='w-full'>
                 <img src={car.images[0]} className='h-52 w-full object-cover' alt="" />
             </div>
-            <h1 className='font-semibold text-lg px-4 pt-2 text-card-foreground'>{car.carName}</h1>
-            <h1 className='font-bold text-xl px-4 pt-1 text-foreground'>₹{car.price}</h1>
+            <h1 className='font-semibold text-lg px-4 pt-2 dark:text-white'>{car.carName}</h1>
+            <h1 className='font-bold text-xl px-4 pt-1 dark:text-white'>₹{car.price}</h1>
 
             <div className='flex gap-4 px-4 mt-4 font-extralight'>
                 <span className='flex gap-1 items-center'> <FuelIcon className='h-4 w-4' /> {car.fuelType}</span>

@@ -21,14 +21,14 @@ const CarDashboard = ({ car }) => {
   return (
     <div className=" mt-4 space-y-6">
       {/* Price Comparison */}
-      <Card>
-        <CardHeader>Price Comparison</CardHeader>
+      <Card className="bg-black/20 backdrop-blur-md border border-white/10 text-white">
+        <CardHeader className="text-white">Price Comparison</CardHeader>
         <CardContent>
           <ResponsiveContainer width="100%" height={200}>
             <BarChart data={priceComparison}>
-              <XAxis dataKey="name" />
-              <YAxis />
-              <Tooltip />
+              <XAxis dataKey="name" tick={{ fill: 'white', fontSize: 12 }} />
+              <YAxis tick={{ fill: 'white', fontSize: 12 }} />
+              <Tooltip contentStyle={{ backgroundColor: 'rgba(0,0,0,0.8)', border: 'none', borderRadius: '8px', color: 'white' }} />
               <Bar dataKey="price" fill="#3B82F6" radius={[6, 6, 0, 0]} />
             </BarChart>
           </ResponsiveContainer>
@@ -36,14 +36,14 @@ const CarDashboard = ({ car }) => {
       </Card>
 
       {/* Depreciation */}
-      <Card>
-        <CardHeader>Resale Value Projection</CardHeader>
+      <Card className="bg-black/20 backdrop-blur-md border border-white/10 text-white">
+        <CardHeader className="text-white">Resale Value Projection</CardHeader>
         <CardContent>
           <ResponsiveContainer width="100%" height={200}>
             <LineChart data={depreciation}>
-              <XAxis dataKey="year" />
-              <YAxis />
-              <Tooltip />
+              <XAxis dataKey="year" tick={{ fill: 'white', fontSize: 12 }} />
+              <YAxis tick={{ fill: 'white', fontSize: 12 }} />
+              <Tooltip contentStyle={{ backgroundColor: 'rgba(0,0,0,0.8)', border: 'none', borderRadius: '8px', color: 'white' }} />
               <Line type="monotone" dataKey="value" stroke="#10B981" strokeWidth={3} />
             </LineChart>
           </ResponsiveContainer>

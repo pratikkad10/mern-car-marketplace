@@ -5,9 +5,32 @@ import { XIcon } from "lucide-react"
 import { cn } from "../../lib/utils"
 
 function Dialog({
+  onOpenChange,
+  open,
+  defaultOpen,
   ...props
 }) {
-  return <DialogPrimitive.Root data-slot="dialog" {...props} />;
+  // Toggle body scroll when any dialog opens/closes to prevent background scrolling.
+  const handleOpenChange = (isOpen) => {
+    try {
+      if (isOpen) document.body.style.overflow = "hidden";
+      else document.body.style.overflow = "";
+    } catch {
+      /* ignore (e.g., server-side) */
+    }
+
+    if (typeof onOpenChange === "function") onOpenChange(isOpen);
+  };
+
+  return (
+    <DialogPrimitive.Root
+      data-slot="dialog"
+      onOpenChange={handleOpenChange}
+      open={open}
+      defaultOpen={defaultOpen}
+      {...props}
+    />
+  );
 }
 
 function DialogTrigger({
