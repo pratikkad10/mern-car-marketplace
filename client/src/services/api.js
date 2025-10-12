@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const api = axios.create({
-  baseURL: "http://localhost:8000",
+  baseURL: "https://car-marketplace-backend-6kpu.onrender.com",
   withCredentials: true, // send cookies automatically
 });
 
