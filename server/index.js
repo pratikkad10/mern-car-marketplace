@@ -13,7 +13,9 @@ const PORT = process.env.PORT || 5000;
 
 app.use(
   cors({
-    origin: [process.env.BASE_URL, "http://localhost:5173", "https://car-marketplace-frontend-ktxy.onrender.com/"],
+    origin: [process.env.BASE_URL, "http://localhost:5173",
+      "https://car-marketplace-frontend.vercel.app", // ✅ Vercel frontend domain
+      "https://car-marketplace-frontend-ktxy.onrender.com" ],
     credentials: true,
   })
 );
