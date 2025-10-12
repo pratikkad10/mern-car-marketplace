@@ -216,7 +216,7 @@ const CarDetails = ({ car }) => {
                     </Button>
 
                     {/* Contact Seller Dialog (Accessibility Fixed) */}
-                    <Dialog>
+                    <Dialog className="dialog-scrollable">
                         <DialogTrigger asChild>
                             <Button className="bg-blue-500 text-white">
                                 <ContactIcon className="mr-2 h-4 w-4" /> Contact Seller
@@ -229,7 +229,7 @@ const CarDetails = ({ car }) => {
                                 <DialogTitle>Contact Seller Form</DialogTitle>
                             </VisuallyHidden>
 
-                            <div className="w-full flex justify-center items-start px-3 py-4 sm:px-4">
+                            <div className="w-full flex justify-center items-start px-3 py-4 sm:px-4 mb-4">
                                 <ContactSellerForm car={car} seller={car.seller} />
                             </div>
                         </DialogContent>
@@ -307,7 +307,7 @@ const CarDetails = ({ car }) => {
             <div className="mt-6">
                 <h3 className="font-semibold mb-3">Seller Information</h3>
                 <Card className="rounded-2xl shadow-sm bg-gray-50">
-                    <CardContent className="p-4">
+                    <CardContent className="p-4 ">
                         <div className="flex items-center mb-4">
                             <div className="w-12 h-12 rounded-full bg-gray-200 flex items-center justify-center">
                                 <Store className="w-6 h-6 text-gray-600" />
