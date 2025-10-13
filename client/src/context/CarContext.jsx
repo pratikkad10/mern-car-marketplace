@@ -1,5 +1,4 @@
-import React, { createContext, useContext, useState  } from "react";
-import { AuthContext } from "./AuthContext";
+import React, { createContext, useState  } from "react";
 import { CreateCar, getAllCars } from "../services/api";
 import { toast } from "react-toastify";
 
@@ -10,20 +9,20 @@ export const CarContext = createContext(null);
 
 export function CarProvider({ children }) {
 
-    const { setLoading } = useContext(AuthContext);
     const [cars, setCars] = useState([]);
     const [carsLoading, setCarsLoading] = useState(false);
+    const [createCarLoading, setCreateCarLoading] = useState(false);
 
     const createCar = async (data) => {
         try {
-          setLoading(true)
+          setCreateCarLoading(true)
           await CreateCar(data)
           toast.success("Car added successfully")
         } catch (error) {
           console.log(error);
           toast.error("Error while adding car")
         } finally{
-          setLoading(false)
+          setCreateCarLoading(false)
         }
       };
 
@@ -46,7 +45,8 @@ export function CarProvider({ children }) {
      getCars,
      cars,
      setCars,
-     carsLoading
+     carsLoading,
+     createCarLoading
   };
 
   return (

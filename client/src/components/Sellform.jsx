@@ -113,41 +113,31 @@ const Sellform = () => {
   };
 
   return (
-    <div className="min-h-screen p-4 sm:p-6 md:p-8" style={{
-      background: `
-        radial-gradient(ellipse 800px 600px at 88% 12%, rgba(216, 180, 180, 0.08), transparent 65%),
-        radial-gradient(ellipse 700px 500px at 15% 88%, rgba(158, 164, 199, 0.12), transparent 60%),
-        radial-gradient(ellipse 600px 400px at 42% 75%, rgba(255, 140, 80, 0.06), transparent 55%),
-        radial-gradient(ellipse 500px 350px at 78% 45%, rgba(120, 200, 140, 0.04), transparent 50%),
-        radial-gradient(ellipse 900px 700px at 55% 35%, rgba(27, 29, 36, 0.9), transparent 75%),
-        linear-gradient(135deg, #080808 0%, #1b1d24 35%, #0f1015 70%, #0a0a0a 100%)
-      `,
-      backgroundBlendMode: 'soft-light, overlay, multiply, screen, normal, normal'
-    }}>
+    <div className="min-h-screen p-4 sm:p-6 md:p-8 scroll-smooth">
       <form onSubmit={handleSubmit} className="max-w-5xl mx-auto">
         {/* HEADER */}
         <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
           <div className="flex items-center gap-4 ">
-            <div className="rounded-full bg-black/30 backdrop-blur-lg border border-white/20 p-4 cursor-pointer hover:bg-black/40 transition-all shadow-lg">
-              <ArrowLeft onClick={() => navigate(-1)} className="w-6 h-6 text-white cursor-pointer" />
+            <div className="rounded-full bg-gray-100/80 dark:bg-black/30 backdrop-blur-lg border border-gray-300/50 dark:border-white/20 p-4 cursor-pointer hover:bg-gray-200/80 dark:hover:bg-black/40 transition-all shadow-lg">
+              <ArrowLeft onClick={() => navigate(-1)} className="w-6 h-6 text-gray-700 dark:text-white cursor-pointer" />
 
             </div>
             <div>
-              <h1 className="font-bold text-2xl sm:text-3xl text-white">
+              <h1 className="font-bold text-2xl sm:text-3xl text-gray-800 dark:text-white">
                 Sell Your Car
               </h1>
-              <p className="text-white/80 text-sm sm:text-base">
+              <p className="text-gray-600 dark:text-white/80 text-sm sm:text-base">
                 Complete the form below to list your vehicle on AutoMarket
               </p>
             </div>
           </div>
         </div>
 
-        <div className="bg-black/20 backdrop-blur-md border border-white/10 text-white p-4 sm:p-6 md:p-8 rounded-xl mt-6 sm:mt-10 flex flex-col gap-6">
+        <div className="bg-white/70 dark:bg-black/20 backdrop-blur-md border border-gray-200/50 dark:border-white/10 text-gray-800 dark:text-white p-4 sm:p-6 md:p-8 rounded-xl mt-6 sm:mt-10 flex flex-col gap-6">
           {/* BASIC INFO */}
           <div className="flex items-center gap-2">
             <CarFront className="bg-blue-500 p-1 h-8 w-8 rounded-full text-white" />
-            <span className="text-lg font-semibold text-white">
+            <span className="text-lg font-semibold text-gray-800 dark:text-white">
               Basic Information
             </span>
           </div>
@@ -368,6 +358,7 @@ const Sellform = () => {
                       src={img}
                       alt="preview"
                       className="w-24 h-24 object-cover rounded"
+                      loading="lazy"
                     />
                     <button
                       type="button"

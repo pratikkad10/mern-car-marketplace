@@ -11,7 +11,7 @@ const Footer = () => (
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
         {/* Brand */}
         <div>
-          <div className="[font-family:var(--font-logo)] text-2xl text-white/90 hover:text-white transition-colors cursor-pointer">AutoMarket</div>
+          <div className="[font-family:var(--font-logo)] text-2xl text-gray-800 dark:text-white/90 hover:text-gray-900 dark:hover:text-white transition-colors cursor-pointer">AutoMarket</div>
           <p className="mt-3 text-sm text-muted-foreground">
             Buy and sell cars with confidence. Explore thousands of listings, verified sellers, and easy financing.
           </p>

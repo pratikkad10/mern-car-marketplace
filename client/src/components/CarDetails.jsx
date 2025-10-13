@@ -95,9 +95,9 @@ const ContactSellerForm = ({car,  seller }) => {
     };
 
     return (
-        <Card className="rounded-2xl shadow-lg bg-black/20 backdrop-blur-md border border-white/10 text-white w-full max-w-[92vw] sm:max-w-[420px] md:max-w-[480px] overflow-hidden">
+        <Card className="rounded-2xl shadow-2xl bg-white/40 dark:bg-black/30 backdrop-blur-xl border border-white/30 dark:border-white/20 text-gray-800 dark:text-white w-full max-w-[92vw] sm:max-w-[420px] md:max-w-[480px] overflow-hidden">
             <CardHeader className="flex flex-row items-center justify-between pb-2 border-b">
-                <CardTitle>Contact Seller</CardTitle>
+                <CardTitle className="text-gray-800 dark:text-white">Contact Seller</CardTitle>
                 <DialogClose asChild>
                     <Button variant="ghost" size="icon" className="h-8 w-8 p-0">
                         <X className="h-5 w-5" />
@@ -108,14 +108,14 @@ const ContactSellerForm = ({car,  seller }) => {
             <CardContent className="space-y-4">
                 {/* Seller Info */}
                 <div>
-                    <p className="font-medium text-base">
+                    <p className="font-medium text-base text-gray-800 dark:text-white">
                         {seller?.fullName || "Premium Motors Delhi"}
                     </p>
-                    <div className="flex items-center gap-2 text-sm text-white/70">
+                    <div className="flex items-center gap-2 text-sm text-gray-600 dark:text-white/70">
                         <Phone className="h-4 w-4" />
                         <span>{seller?.phone || "+91 98765 43210"}</span>
                     </div>
-                    <div className="flex items-center gap-2 text-sm text-white/70">
+                    <div className="flex items-center gap-2 text-sm text-gray-600 dark:text-white/70">
                         <MapPin className="h-4 w-4" />
                         <span>{seller?.location || "Mumbai, Maharashtra"}</span>
                     </div>
@@ -145,7 +145,7 @@ const ContactSellerForm = ({car,  seller }) => {
                 {/* Form */}
                 <form onSubmit={handleSubmit} className="space-y-3 mt-4">
                     <div>
-                        <label className="text-sm font-medium text-white">Your Name</label>
+                        <label className="text-sm font-medium text-gray-800 dark:text-white">Your Name</label>
                         <Input
                             name="name"
                             placeholder="Enter your name"
@@ -155,7 +155,7 @@ const ContactSellerForm = ({car,  seller }) => {
                         />
                     </div>
                     <div>
-                        <label className="text-sm font-medium text-white">Your Phone</label>
+                        <label className="text-sm font-medium text-gray-800 dark:text-white">Your Phone</label>
                         <Input
                             name="phone"
                             placeholder="Enter your phone number"
@@ -165,7 +165,7 @@ const ContactSellerForm = ({car,  seller }) => {
                         />
                     </div>
                     <div>
-                        <label className="text-sm font-medium text-white">Message</label>
+                        <label className="text-sm font-medium text-gray-800 dark:text-white">Message</label>
                         <Textarea
                             name="message"
                             placeholder="I'm interested in this car. Please contact me."
@@ -173,7 +173,7 @@ const ContactSellerForm = ({car,  seller }) => {
                             value={formData.message}
                             onChange={handleChange}
                         />
-                        <p className="text-xs text-white/70 mt-1">{charCount}/500 characters</p>
+                        <p className="text-xs text-gray-500 dark:text-white/70 mt-1">{charCount}/500 characters</p>
                     </div>
                     <Button
                         type="submit"
@@ -183,7 +183,7 @@ const ContactSellerForm = ({car,  seller }) => {
                     </Button>
                 </form>
 
-                <p className="text-xs text-white/70 mt-2 text-center">
+                <p className="text-xs text-gray-500 dark:text-white/70 mt-2 text-center">
                     ℹ️ Your contact details will be shared with the seller. They will contact you directly.
                 </p>
             </CardContent>
@@ -197,14 +197,14 @@ const CarDetails = ({ car }) => {
         <div>
             {/* Car Image */}
             <div>
-                <img className="rounded-md w-full" src={car.images[0]} alt="car" />
+                <img className="rounded-md w-full" src={car.images[0]} alt="car" loading="lazy" />
             </div>
 
             {/* Price + Buttons */}
             <div className="mt-4 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
                 <div>
-                    <p className="text-sm text-white/70">Price</p>
-                    <p className="font-bold text-xl">₹{car.price}</p>
+                    <p className="text-sm text-gray-600 dark:text-white/70">Price</p>
+                    <p className="font-bold text-xl text-gray-800 dark:text-white">₹{car.price}</p>
                 </div>
 
                 <div className="flex flex-wrap gap-2">
@@ -243,7 +243,7 @@ const CarDetails = ({ car }) => {
             {/* Specifications */}
             <div className="mt-4 w-full grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div className="">
-                    <h1 className="font-semibold">Specifications</h1>
+                    <h1 className="font-semibold text-gray-800 dark:text-white">Specifications</h1>
                     <div className="grid grid-cols-2 gap-4 mt-4">
                         {[
                             ["Make", car.brand],
@@ -260,8 +260,8 @@ const CarDetails = ({ car }) => {
                                 variant="outline"
                                 className="flex flex-col items-start p-3 w-full bg-muted/40"
                             >
-                                <p className="text-xs text-white/70">{label}</p>
-                                <p className="font-medium">{value}</p>
+                                <p className="text-xs text-gray-600 dark:text-white/70">{label}</p>
+                                <p className="font-medium text-gray-800 dark:text-white">{value}</p>
                             </Badge>
                         ))}
                     </div>
@@ -269,7 +269,7 @@ const CarDetails = ({ car }) => {
 
                 {/* Features */}
                 <div className="flex flex-col gap-2">
-                    <h3 className="font-semibold mb-2">Key Features</h3>
+                    <h3 className="font-semibold mb-2 text-gray-800 dark:text-white">Key Features</h3>
                     {car.features &&
                         JSON.parse(car.features[0]).map((feature, id) => (
                             <Badge
@@ -278,7 +278,7 @@ const CarDetails = ({ car }) => {
                                 className="w-full py-2 pl-3 flex items-center gap-2 justify-start bg-muted/40"
                             >
                                 <Check className="w-4 h-4 text-blue-500" />
-                                <span>{feature}</span>
+                                <span className="text-gray-800 dark:text-white">{feature}</span>
                             </Badge>
                         ))}
                 </div>
@@ -286,13 +286,13 @@ const CarDetails = ({ car }) => {
 
             {/* Description */}
             <div className="mt-4">
-                <h3 className="font-semibold mb-2">Description</h3>
-                <p className="font-extralight text-sm">{car.description}</p>
+                <h3 className="font-semibold mb-2 text-gray-800 dark:text-white">Description</h3>
+                <p className="font-extralight text-sm text-gray-700 dark:text-white/80">{car.description}</p>
             </div>
 
             {/* Location */}
             <div className="mt-4">
-                <h3 className="font-semibold mb-2">Location</h3>
+                <h3 className="font-semibold mb-2 text-gray-800 dark:text-white">Location</h3>
                 <Badge
                     className="w-full justify-start truncate py-2 bg-muted/40"
                     variant="outline"
@@ -308,7 +308,7 @@ const CarDetails = ({ car }) => {
 
             {/* Seller Information */}
             <div className="mt-6">
-                <h3 className="font-semibold mb-3">Seller Information</h3>
+                <h3 className="font-semibold mb-3 text-gray-800 dark:text-white">Seller Information</h3>
                 <Card className="rounded-2xl shadow-sm bg-black/20 backdrop-blur-md border border-white/10 text-white">
                     <CardContent className="p-4 ">
                         <div className="flex items-center mb-4">
@@ -316,7 +316,7 @@ const CarDetails = ({ car }) => {
                                 <Store className="w-6 h-6 text-white" />
                             </div>
                             <div className="ml-4">
-                                <h4 className="font-semibold">{car.seller.fullName}</h4>
+                                <h4 className="font-semibold text-gray-800 dark:text-white">{car.seller.fullName}</h4>
                                 {/* <h4 className="font-semibold">{car.seller._id}</h4> */}
                                 <p className="text-sm text-white/70">{car.seller.email}</p>
                             </div>

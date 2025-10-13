@@ -4,7 +4,7 @@ const Review = ({ review }) => {
     const rating = Math.max(0, Math.min(5, Number(review.rating) || 0))
     
     return (
-        <div className="bg-gradient-to-b from-white/80 to-violet-200/60 dark:bg-black/20 backdrop-blur-md border border-gray-200/10 dark:bg-none rounded-lg p-6 shadow-lg h-48 w-full flex flex-col justify-between text-gray-800 dark:text-white">
+        <div className="bg-white/70 dark:bg-black/20 backdrop-blur-md border border-gray-200/50 dark:border-white/10 rounded-lg p-6 shadow-lg h-48 w-full flex flex-col justify-between text-gray-800 dark:text-white">
             <div>
                 <div className="flex items-center mb-3">
                     <div className="text-yellow-500 text-lg">
@@ -17,7 +17,7 @@ const Review = ({ review }) => {
                     </div>
                 </div>
                 
-                <p className="text-muted-foreground text-sm italic line-clamp-3">
+                <p className="text-gray-600 dark:text-white/70 text-sm italic line-clamp-3">
                     "{review.text}"
                 </p>
             </div>
@@ -28,7 +28,7 @@ const Review = ({ review }) => {
                 </div>
                 <div>
                     <p className="font-medium text-sm">{review.name}</p>
-                    <p className="text-xs text-muted-foreground">{review.title}</p>
+                    <p className="text-xs text-gray-500 dark:text-white/60">{review.title}</p>
                 </div>
             </div>
         </div>

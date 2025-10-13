@@ -31,5 +31,9 @@ export const getAllTestDrives = () => api.get("/cars/allTestDrive");
 export const createIntrestedUser = (data) => api.post("/cars/interestedUser", data);
 export const getIntrestedUser = () => api.get("/cars/interestedUser");
 
+// Wishlist APIs
+export const addToWishlist = (carId) => api.post("/wishlist/add", { carId });
+export const removeFromWishlist = (carId) => api.delete(`/wishlist/remove/${carId}`);
+export const getWishlist = () => api.get("/wishlist");
 
 export default api;

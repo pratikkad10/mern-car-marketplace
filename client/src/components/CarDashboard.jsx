@@ -22,7 +22,7 @@ const CarDashboard = ({ car }) => {
     <div className=" mt-4 space-y-6">
       {/* Price Comparison */}
       <Card className="bg-black/20 backdrop-blur-md border border-white/10 text-white">
-        <CardHeader className="text-white">Price Comparison</CardHeader>
+        <CardHeader className="text-gray-800 dark:text-white">Price Comparison</CardHeader>
         <CardContent>
           <ResponsiveContainer width="100%" height={200}>
             <BarChart data={priceComparison}>
@@ -37,7 +37,7 @@ const CarDashboard = ({ car }) => {
 
       {/* Depreciation */}
       <Card className="bg-black/20 backdrop-blur-md border border-white/10 text-white">
-        <CardHeader className="text-white">Resale Value Projection</CardHeader>
+        <CardHeader className="text-gray-800 dark:text-white">Resale Value Projection</CardHeader>
         <CardContent>
           <ResponsiveContainer width="100%" height={200}>
             <LineChart data={depreciation}>

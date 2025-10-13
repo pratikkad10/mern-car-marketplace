@@ -35,18 +35,18 @@ const ScheduleTestDriveForm = ({ car, onClose }) => {
   };
 
   return (
-    <Card className="w-full max-w-[92vw] sm:max-w-[480px] md:max-w-[560px] rounded-2xl shadow-lg bg-black/20 backdrop-blur-md border border-white/10 text-white mb-4 relative">
+    <Card className="w-full max-w-[92vw] sm:max-w-[480px] md:max-w-[560px] rounded-2xl shadow-2xl bg-white/40 dark:bg-black/30 backdrop-blur-xl border border-white/30 dark:border-white/20 text-gray-800 dark:text-white mb-4 relative">
       <CardHeader className="pb-3 relative">
         <DialogClose asChild>
           <Button variant="ghost" size="icon" className="absolute right-2 top-2 h-6 w-6 p-0 text-white hover:bg-white/20">
-            <X className="h-4 w-4" />
+            <X className="h-4 w-4 text-gray-700 dark:text-white" />
           </Button>
         </DialogClose>
-        <CardTitle className="text-base font-semibold pr-8">Schedule Test Drive</CardTitle>
-        <p className="text-xs text-white/70">
+        <CardTitle className="text-base font-semibold pr-8 text-gray-800 dark:text-white">Schedule Test Drive</CardTitle>
+        <p className="text-xs text-gray-600 dark:text-white/70">
           {car.brand} {car.model} — {car.variant || ""}
         </p>
-        <p className="text-xs text-white/70">
+        <p className="text-xs text-gray-600 dark:text-white/70">
           📍 {car.seller?.fullName || "Premium Motors"} - {car.seller?.location || "Mumbai, Maharashtra"}
         </p>
       </CardHeader>
@@ -55,13 +55,13 @@ const ScheduleTestDriveForm = ({ car, onClose }) => {
         <form onSubmit={handleSubmit} className="space-y-3">
           {/* Date Picker */}
           <div>
-            <label className="text-sm font-medium text-white">Select Date</label>
+            <label className="text-sm font-medium text-gray-800 dark:text-white">Select Date</label>
             <Input type="date" name="date" value={formData.date} onChange={handleChange} required />
           </div>
 
           {/* Time Slot */}
           <div>
-            <label className="text-sm font-medium text-white">Select Time Slot</label>
+            <label className="text-sm font-medium text-gray-800 dark:text-white">Select Time Slot</label>
             <select
               name="time"
               className="border rounded-md w-full p-2 text-sm"
@@ -81,11 +81,11 @@ const ScheduleTestDriveForm = ({ car, onClose }) => {
           {/* Contact Info */}
           <div className="grid grid-cols-2 gap-2">
             <div>
-              <label className="text-sm font-medium text-white">Your Name</label>
+              <label className="text-sm font-medium text-gray-800 dark:text-white">Your Name</label>
               <Input name="name" placeholder="Enter full name" value={formData.name} onChange={handleChange} required />
             </div>
             <div>
-              <label className="text-sm font-medium text-white">Phone Number</label>
+              <label className="text-sm font-medium text-gray-800 dark:text-white">Phone Number</label>
               <Input
                 name="phone"
                 placeholder="Enter phone number"
@@ -97,7 +97,7 @@ const ScheduleTestDriveForm = ({ car, onClose }) => {
           </div>
 
           <div>
-            <label className="text-sm font-medium text-white">Email Address</label>
+            <label className="text-sm font-medium text-gray-800 dark:text-white">Email Address</label>
             <Input
               name="email"
               type="email"
@@ -109,7 +109,7 @@ const ScheduleTestDriveForm = ({ car, onClose }) => {
           </div>
 
           <div>
-            <label className="text-sm font-medium text-white">Special Requirements (Optional)</label>
+            <label className="text-sm font-medium text-gray-800 dark:text-white">Special Requirements (Optional)</label>
             <Textarea
               name="notes"
               placeholder="Any specific requests or questions..."
@@ -120,7 +120,7 @@ const ScheduleTestDriveForm = ({ car, onClose }) => {
           </div>
 
           {/* Guidelines */}
-          <div className="bg-white/10 p-2 rounded-md text-xs text-white/80">
+          <div className="bg-gray-100/80 dark:bg-white/10 p-2 rounded-md text-xs text-gray-700 dark:text-white/80">
             <p>• Bring valid license • 15-30 min duration</p>
             <p>• Representative included • Insurance provided</p>
           </div>

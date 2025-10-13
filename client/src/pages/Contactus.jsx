@@ -9,7 +9,7 @@ import {
 
 const ContactUs = () => {
   return (
-    <div className="bg-background text-foreground">
+    <div className="min-h-screen text-gray-800 dark:text-white">
       {/* Navigation (same as your main page) */}
 
       {/* Hero Section */}
@@ -30,36 +30,36 @@ const ContactUs = () => {
       <section className="py-16 bg-card text-card-foreground">
         <div className="container mx-auto px-4">
           <div className="max-w-6xl mx-auto">
-            <h2 className="text-3xl font-bold text-gray-900 mb-12 text-center">
+            <h2 className="text-3xl font-bold text-gray-800 dark:text-white mb-12 text-center">
               Get In Touch
             </h2>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
               {/* Location */}
               <div className="bg-background p-6 rounded-lg">
                 <div className="flex items-center gap-4 mb-4">
-                  <div className="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center">
+                  <div className="w-12 h-12 bg-blue-100 dark:bg-blue-900/50 rounded-full flex items-center justify-center">
                     <MapPin className="w-6 h-6 text-primary" />
                   </div>
-                  <h3 className="text-xl font-semibold">
+                  <h3 className="text-xl font-semibold text-gray-800 dark:text-white">
                     Our Locations
                   </h3>
                 </div>
                 <div className="space-y-4">
                   <div>
-                    <h4 className="font-medium">Headquarters</h4>
-                    <p className="text-muted-foreground">
+                    <h4 className="font-medium text-gray-800 dark:text-white">Headquarters</h4>
+                    <p className="text-gray-600 dark:text-white/80">
                       123 Auto Plaza, Bangalore, Karnataka 560001
                     </p>
                   </div>
                   <div>
-                    <h4 className="font-medium">Mumbai Branch</h4>
-                    <p className="text-muted-foreground">
+                    <h4 className="font-medium text-gray-800 dark:text-white">Mumbai Branch</h4>
+                    <p className="text-gray-600 dark:text-white/80">
                       456 Motor Street, Mumbai, Maharashtra 400001
                     </p>
                   </div>
                   <div>
-                    <h4 className="font-medium">Delhi Branch</h4>
-                    <p className="text-muted-foreground">
+                    <h4 className="font-medium text-gray-800 dark:text-white">Delhi Branch</h4>
+                    <p className="text-gray-600 dark:text-white/80">
                       789 Vehicle Lane, New Delhi 110001
                     </p>
                   </div>
@@ -68,50 +68,50 @@ const ContactUs = () => {
               {/* Contact */}
               <div className="bg-background p-6 rounded-lg">
                 <div className="flex items-center gap-4 mb-4">
-                  <div className="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center">
+                  <div className="w-12 h-12 bg-blue-100 dark:bg-blue-900/50 rounded-full flex items-center justify-center">
                     <Phone className="w-6 h-6 text-primary" />
                   </div>
-                  <h3 className="text-xl font-semibold">
+                  <h3 className="text-xl font-semibold text-gray-800 dark:text-white">
                     Contact Details
                   </h3>
                 </div>
                 <div className="space-y-4">
                   <div>
-                    <h4 className="font-medium">Sales Inquiries</h4>
-                    <p className="text-muted-foreground">+91 80 1234 5678</p>
+                    <h4 className="font-medium text-gray-800 dark:text-white">Sales Inquiries</h4>
+                    <p className="text-gray-600 dark:text-white/80">+91 80 1234 5678</p>
                   </div>
                   <div>
-                    <h4 className="font-medium">Service Department</h4>
-                    <p className="text-muted-foreground">+91 80 9876 5432</p>
+                    <h4 className="font-medium text-gray-800 dark:text-white">Service Department</h4>
+                    <p className="text-gray-600 dark:text-white/80">+91 80 9876 5432</p>
                   </div>
                   <div>
-                    <h4 className="font-medium">General Inquiries</h4>
-                    <p className="text-muted-foreground">info@automarket.in</p>
+                    <h4 className="font-medium text-gray-800 dark:text-white">General Inquiries</h4>
+                    <p className="text-gray-600 dark:text-white/80">info@automarket.in</p>
                   </div>
                 </div>
               </div>
               {/* Hours */}
               <div className="bg-background p-6 rounded-lg">
                 <div className="flex items-center gap-4 mb-4">
-                  <div className="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center">
+                  <div className="w-12 h-12 bg-blue-100 dark:bg-blue-900/50 rounded-full flex items-center justify-center">
                     <Clock className="w-6 h-6 text-primary" />
                   </div>
-                  <h3 className="text-xl font-semibold">
+                  <h3 className="text-xl font-semibold text-gray-800 dark:text-white">
                     Business Hours
                   </h3>
                 </div>
                 <div className="space-y-4">
                   <div className="flex justify-between">
                     <span>Monday - Friday</span>
-                    <span className="text-muted-foreground">9:00 AM - 7:00 PM</span>
+                    <span className="text-gray-600 dark:text-white/80">9:00 AM - 7:00 PM</span>
                   </div>
                   <div className="flex justify-between">
                     <span>Saturday</span>
-                    <span className="text-muted-foreground">10:00 AM - 6:00 PM</span>
+                    <span className="text-gray-600 dark:text-white/80">10:00 AM - 6:00 PM</span>
                   </div>
                   <div className="flex justify-between">
                     <span>Sunday</span>
-                    <span className="text-muted-foreground">11:00 AM - 4:00 PM</span>
+                    <span className="text-gray-600 dark:text-white/80">11:00 AM - 4:00 PM</span>
                   </div>
                 </div>
               </div>
@@ -129,7 +129,7 @@ const ContactUs = () => {
       {/* FAQ Section with Accordion */}
       <section className="py-16 bg-background">
         <div className="container mx-auto px-4">
-          <h2 className="text-3xl font-bold mb-8 text-center">
+          <h2 className="text-3xl font-bold mb-8 text-center text-gray-800 dark:text-white">
             Frequently Asked Questions
           </h2>
           <div className="max-w-3xl mx-auto">

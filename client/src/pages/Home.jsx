@@ -40,20 +40,10 @@ const Home = () => {
   };
 
   return (
-    <div className='flex flex-col overflow-x-hidden min-h-screen bg-gradient-to-b from-white via-violet-50 to-violet-200 dark:bg-none' style={{
-      background: `var(--tw-gradient-stops, 
-        radial-gradient(ellipse 800px 600px at 88% 12%, rgba(216, 180, 180, 0.08), transparent 65%),
-        radial-gradient(ellipse 700px 500px at 15% 88%, rgba(158, 164, 199, 0.12), transparent 60%),
-        radial-gradient(ellipse 600px 400px at 42% 75%, rgba(255, 140, 80, 0.06), transparent 55%),
-        radial-gradient(ellipse 500px 350px at 78% 45%, rgba(120, 200, 140, 0.04), transparent 50%),
-        radial-gradient(ellipse 900px 700px at 55% 35%, rgba(27, 29, 36, 0.9), transparent 75%),
-        linear-gradient(135deg, #080808 0%, #1b1d24 35%, #0f1015 70%, #0a0a0a 100%)
-      )`,
-      backgroundBlendMode: 'soft-light, overlay, multiply, screen, normal, normal'
-    }}>
+    <div className='flex flex-col overflow-x-hidden min-h-screen'>
       {/* Hero Section */}
       <div className="relative w-full h-[18rem] sm:h-[22rem] md:h-[26rem] lg:h-[26rem] mt-0">
-        <img className="absolute inset-0 w-full h-full object-cover object-center" src={img} alt="Hero banner showing cars" />
+        <img className="absolute inset-0 w-full h-full object-cover object-center" src={img} alt="Hero banner showing cars" loading="lazy" />
         <div className="absolute z-[5] top-8 sm:top-12 md:top-16 inset-x-0 px-4 sm:px-8 md:px-12 lg:px-0">
           <div className="w-[92%] sm:w-[70%] md:w-[60%] lg:w-[46%] xl:w-[42%] mx-auto lg:mx-0 lg:ml-16 text-center lg:text-left">
             <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-2 sm:mb-4 leading-tight">
@@ -71,7 +61,7 @@ const Home = () => {
       </div>
 
       {/* Car Listing */}
-      <Card ref={listRef} className="mt-4 mx-2 sm:mx-4 lg:mx-8 overflow-hidden scroll-mt-24 bg-transparent border-white/10 backdrop-blur-sm">
+      <Card ref={listRef} className="mt-4 mx-2 sm:mx-4 lg:mx-8 overflow-hidden scroll-mt-24 bg-white/60 dark:bg-transparent border-gray-200/50 dark:border-white/10 backdrop-blur-sm text-gray-800 dark:text-white">
         <CardHeader>
           <CardTitle className="flex justify-between items-center">
             <div className="font-bold">
@@ -103,7 +93,7 @@ const Home = () => {
 
       {/* Car Details Dialog */}
       <Dialog open={open} onOpenChange={setOpen}>
-        <DialogContent className="max-w-[92vw] sm:max-w-[85vw] md:max-w-[75vw] lg:max-w-[65vw] xl:max-w-[60vw] w-full mx-auto max-h-[88vh] overflow-y-auto scrollbar-hide bg-black/20 backdrop-blur-md border border-white/10 text-white">
+        <DialogContent className="max-w-[92vw] sm:max-w-[85vw] md:max-w-[75vw] lg:max-w-[65vw] xl:max-w-[60vw] w-full mx-auto max-h-[88vh] overflow-y-auto scrollbar-hide bg-white/40 dark:bg-black/30 backdrop-blur-xl border border-white/30 dark:border-white/20 text-gray-800 dark:text-white shadow-2xl">
           <DialogHeader>
             <DialogTitle>{selectedCar?.name}</DialogTitle>
           </DialogHeader>

@@ -72,15 +72,15 @@ const Profile = () => {
   }
 
   return (
-    <div className="p-6">
-      <Card className="overflow-hidden">
+    <div className="p-6 min-h-screen">
+      <Card className="overflow-hidden bg-white/70 dark:bg-black/20 backdrop-blur-md border border-gray-200/50 dark:border-white/10 text-gray-800 dark:text-white">
         {/* Banner / Header */}
-        <div className="h-32 bg-gradient-to-r from-blue-100 to-blue-200 relative">
+        <div className="h-32 bg-gradient-to-r from-blue-100 to-blue-200 dark:from-blue-900/50 dark:to-purple-900/50 relative">
           <div className="absolute -bottom-12 left-6 relative w-24 h-24">
             <img
               src={user?.profilePic || "https://i.pravatar.cc/150?img=1"}
               alt={user?.fullName || "User"}
-              className="w-24 h-24 rounded-full border-4 border-white shadow-md"
+              className="w-24 h-24 rounded-full border-4 border-white dark:border-gray-800 shadow-md"
             />
             <label
               htmlFor="profile-upload"
@@ -104,10 +104,10 @@ const Profile = () => {
               {user?.fullName || "Unnamed User"}{" "}
               <span className="text-blue-500">✔</span>
             </h2>
-            <p className="text-muted-foreground mt-1">{user?.username || ""}</p>
-            <p className="text-muted-foreground mt-1">{user?.email || ""}</p>
-            <p className="text-muted-foreground">{user?.phone || ""}</p>
-            <p className="text-muted-foreground capitalize">
+            <p className="text-gray-600 dark:text-white/70 mt-1">{user?.username || ""}</p>
+            <p className="text-gray-600 dark:text-white/70 mt-1">{user?.email || ""}</p>
+            <p className="text-gray-600 dark:text-white/70">{user?.phone || ""}</p>
+            <p className="text-gray-600 dark:text-white/70 capitalize">
               Gender: {user?.gender || "N/A"}
             </p>
           </div>
@@ -197,7 +197,7 @@ const Profile = () => {
             </Badge>
           </div>
 
-          <div className="flex gap-5 mt-6 text-muted-foreground">
+          <div className="flex gap-5 mt-6 text-gray-600 dark:text-white/70">
             <a href="#" className="hover:text-blue-500">
               <Globe size={20} />
             </a>

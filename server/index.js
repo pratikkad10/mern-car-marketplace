@@ -5,6 +5,7 @@ import connectDB from "./config/db.js";
 import router from "./routes/User.route.js";
 import cors from "cors";
 import carRouter from "./routes/Car.route.js";
+import wishlistRouter from "./routes/Wishlist.route.js";
 
 dotenv.config();
 
@@ -30,7 +31,8 @@ app.get("/", (req, res) => {
 });
 
 app.use("/user", router);
-app.use("/cars", carRouter)
+app.use("/cars", carRouter);
+app.use("/wishlist", wishlistRouter);
 
 app.listen(PORT, () => {
   console.log(`Server running on http://localhost:${PORT}`);

@@ -56,20 +56,10 @@ const BuyCar = () => {
   };
 
   return (
-    <div className="p-4 min-h-screen" style={{
-      background: `
-        radial-gradient(ellipse 800px 600px at 88% 12%, rgba(216, 180, 180, 0.08), transparent 65%),
-        radial-gradient(ellipse 700px 500px at 15% 88%, rgba(158, 164, 199, 0.12), transparent 60%),
-        radial-gradient(ellipse 600px 400px at 42% 75%, rgba(255, 140, 80, 0.06), transparent 55%),
-        radial-gradient(ellipse 500px 350px at 78% 45%, rgba(120, 200, 140, 0.04), transparent 50%),
-        radial-gradient(ellipse 900px 700px at 55% 35%, rgba(27, 29, 36, 0.9), transparent 75%),
-        linear-gradient(135deg, #080808 0%, #1b1d24 35%, #0f1015 70%, #0a0a0a 100%)
-      `,
-      backgroundBlendMode: 'soft-light, overlay, multiply, screen, normal, normal'
-    }}>
-      <Card className="mt-4 mx-2 sm:mx-4 lg:mx-8 bg-black/20 backdrop-blur-md border border-white/10 text-white">
+    <div className="p-4 min-h-screen">
+      <Card className="mt-4 mx-2 sm:mx-4 lg:mx-8 bg-white/70 dark:bg-black/20 backdrop-blur-md border border-gray-200/50 dark:border-white/10 text-gray-800 dark:text-white">
         <CardHeader>
-          <CardTitle className="text-white">Find Your Next Vehicle</CardTitle>
+          <CardTitle className="text-gray-800 dark:text-white">Find Your Next Vehicle</CardTitle>
         </CardHeader>
         <CardContent className="py-6 sm:py-8 md:py-10 grid grid-cols-1 md:grid-cols-5 gap-4 items-end">
 
@@ -144,9 +134,9 @@ const BuyCar = () => {
       </Card>
 
       {/*Listed Cars*/}
-      <Card className="mt-4 mx-2 sm:mx-4 lg:mx-8 bg-black/20 backdrop-blur-md border border-white/10 text-white">
+      <Card className="mt-4 mx-2 sm:mx-4 lg:mx-8 bg-white/70 dark:bg-black/20 backdrop-blur-md border border-gray-200/50 dark:border-white/10 text-gray-800 dark:text-white">
         <CardHeader>
-          <CardTitle className="flex justify-between text-white">
+          <CardTitle className="flex justify-between text-gray-800 dark:text-white">
             Listed Vehicles
             <button onClick={handleRefresh}>
               <RefreshCw className={`w-5 h-5 ${spinning ? "animate-spin" : ""}`} />

@@ -3,7 +3,7 @@ import { Users, Car, Medal, HeartPulse } from 'lucide-react';
 
 const AboutUs = () => {
   return (
-    <div className="bg-background text-foreground">
+    <div className="min-h-screen text-gray-800 dark:text-white">
       {/* Navigation (same as your main page) */}
 
       {/* Hero Section */}
@@ -22,16 +22,16 @@ const AboutUs = () => {
       <section className="py-16 bg-card text-card-foreground">
         <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto">
-            <h2 className="text-3xl font-bold mb-6 text-center">Our Story</h2>
+            <h2 className="text-3xl font-bold mb-6 text-center text-gray-800 dark:text-white">Our Story</h2>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
               <div>
-                <p className="text-muted-foreground mb-4">
+                <p className="text-gray-600 dark:text-white/80 mb-4">
                   Founded in 2010, AutoMarket began as a small local dealership with a passion for connecting people with their perfect vehicles.
                 </p>
-                <p className="text-muted-foreground mb-4">
+                <p className="text-gray-600 dark:text-white/80 mb-4">
                   What started as a modest operation has grown into one of the most trusted names in the automotive industry, serving thousands of satisfied customers nationwide.
                 </p>
-                <p className="text-muted-foreground">
+                <p className="text-gray-600 dark:text-white/80">
                   Our commitment to transparency, quality, and customer satisfaction has been the driving force behind our success.
                 </p>
               </div>
@@ -50,41 +50,41 @@ const AboutUs = () => {
       {/* Our Values Section */}
       <section className="py-16 bg-background">
         <div className="container mx-auto px-4">
-          <h2 className="text-3xl font-bold mb-12 text-center">Our Values</h2>
+          <h2 className="text-3xl font-bold mb-12 text-center text-gray-800 dark:text-white">Our Values</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
             <div className="bg-card text-card-foreground p-6 rounded-lg shadow-sm text-center">
-              <div className="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4">
+              <div className="w-16 h-16 bg-blue-100 dark:bg-blue-900/50 rounded-full flex items-center justify-center mx-auto mb-4">
                 <Users className="w-8 h-8 text-primary" />
               </div>
-              <h3 className="text-lg font-semibold mb-2">People First</h3>
-              <p className="text-muted-foreground">
+              <h3 className="text-lg font-semibold mb-2 text-gray-800 dark:text-white">People First</h3>
+              <p className="text-gray-600 dark:text-white/80">
                 We prioritize our customers' needs and build lasting relationships based on trust.
               </p>
             </div>
             <div className="bg-card text-card-foreground p-6 rounded-lg shadow-sm text-center">
-              <div className="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4">
+              <div className="w-16 h-16 bg-blue-100 dark:bg-blue-900/50 rounded-full flex items-center justify-center mx-auto mb-4">
                 <Car className="w-8 h-8 text-primary" />
               </div>
-              <h3 className="text-lg font-semibold mb-2">Quality Vehicles</h3>
-              <p className="text-muted-foreground">
+              <h3 className="text-lg font-semibold mb-2 text-gray-800 dark:text-white">Quality Vehicles</h3>
+              <p className="text-gray-600 dark:text-white/80">
                 Every car in our inventory undergoes rigorous inspection to ensure reliability.
               </p>
             </div>
             <div className="bg-card text-card-foreground p-6 rounded-lg shadow-sm text-center">
-              <div className="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4">
+              <div className="w-16 h-16 bg-blue-100 dark:bg-blue-900/50 rounded-full flex items-center justify-center mx-auto mb-4">
                 <Medal className="w-8 h-8 text-primary" />
               </div>
-              <h3 className="text-lg font-semibold mb-2">Integrity</h3>
-              <p className="text-muted-foreground">
+              <h3 className="text-lg font-semibold mb-2 text-gray-800 dark:text-white">Integrity</h3>
+              <p className="text-gray-600 dark:text-white/80">
                 Honest pricing and transparent processes with no hidden fees or surprises.
               </p>
             </div>
             <div className="bg-card text-card-foreground p-6 rounded-lg shadow-sm text-center">
-              <div className="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4">
+              <div className="w-16 h-16 bg-blue-100 dark:bg-blue-900/50 rounded-full flex items-center justify-center mx-auto mb-4">
                 <HeartPulse className="w-8 h-8 text-primary" />
               </div>
-              <h3 className="text-lg font-semibold mb-2">Passion</h3>
-              <p className="text-muted-foreground">
+              <h3 className="text-lg font-semibold mb-2 text-gray-800 dark:text-white">Passion</h3>
+              <p className="text-gray-600 dark:text-white/80">
                 We love what we do and it shows in every interaction and vehicle we offer.
               </p>
             </div>
@@ -95,7 +95,7 @@ const AboutUs = () => {
       {/* Team Section */}
       <section className="py-16 bg-card text-card-foreground">
         <div className="container mx-auto px-4">
-          <h2 className="text-3xl font-bold mb-12 text-center">Meet Our Team</h2>
+          <h2 className="text-3xl font-bold mb-12 text-center text-gray-800 dark:text-white">Meet Our Team</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {[
               {
@@ -126,9 +126,9 @@ const AboutUs = () => {
                   />
                 </div>
                 <div className="p-6">
-                  <h3 className="text-xl font-semibold">{member.name}</h3>
+                  <h3 className="text-xl font-semibold text-gray-800 dark:text-white">{member.name}</h3>
                   <p className="text-primary font-medium mb-3">{member.role}</p>
-                  <p className="text-muted-foreground">{member.bio}</p>
+                  <p className="text-gray-600 dark:text-white/80">{member.bio}</p>
                 </div>
               </div>
             ))}
