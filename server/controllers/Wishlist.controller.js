@@ -46,7 +46,11 @@ export const getWishlist = async (req, res) => {
 
         const user = await User.findById(userId).populate("wishlist");
         
-        res.status(200).json({ wishlist: user.wishlist });
+        if (!user) {
+            return res.status(404).json({ wishlist: [] });
+        }
+        
+        res.status(200).json({ wishlist: user.wishlist || [] });
     } catch (error) {
         res.status(500).json({ message: error.message });
     }
