@@ -39,7 +39,7 @@ export const signup = async (req, res) => {
         profilePic: user.profilePic,
         gender: user.gender,
         phone: user.phone,
-        role
+        role,
       },
     });
   } catch (err) {
@@ -67,9 +67,9 @@ export const login = async (req, res) => {
     );
 
     res.cookie("token", token, {
-      httpOnly: true, 
-      secure: process.env.NODE_ENV === "production", 
-      sameSite: "strict",
+      httpOnly: true,
+      secure: true,
+      sameSite: "none",
       maxAge: 24 * 60 * 60 * 1000 // 1 day
     });
 
@@ -93,16 +93,15 @@ export const login = async (req, res) => {
   }
 };
 
-
 export const getProfile = async (req, res) => {
   try {
-    console.log("from getProfile",req.user);
-    
+    console.log("from getProfile", req.user);
+
     const user = await User.findById(req.user.id)
-    .select("-password").populate("listedCars").populate("buyedCars");
+      .select("-password").populate("listedCars").populate("buyedCars");
 
     console.log(user);
-    
+
     if (!user) {
       return res.status(404).json({ success: false, error: "User not found" });
     }
@@ -117,14 +116,13 @@ export const getProfile = async (req, res) => {
   }
 };
 
-
 export const logoutUser = (req, res) => {
   try {
     res.clearCookie("token", {
       httpOnly: true,
-      secure: process.env.NODE_ENV === "production",
-      sameSite: "strict",
-      path: "/"
+      secure: true,
+      sameSite: "none",
+      path: "/",
     });
     res.status(200).json({ success: true, message: "Logged out successfully" });
   } catch (error) {
@@ -135,9 +133,9 @@ export const logoutUser = (req, res) => {
 
 export const resetPassword = async (req, res) => {
   try {
-    const {oldPassword, confirmPassword, newPassword } = req.body;
+    const { oldPassword, newPassword, confirmPassword } = req.body;
 
-    if (!oldPassword || !confirmPassword || !newPassword) {
+    if (!oldPassword || !newPassword || !confirmPassword) {
       return res.status(400).json({ success: false, error: "All fields are required" });
     }
 
@@ -174,5 +172,4 @@ export const resetPassword = async (req, res) => {
   } catch (error) {
     res.status(500).json({ success: false, error: "Server error! password change failed" });
   }
-}; 
-
+};
