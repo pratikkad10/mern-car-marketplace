@@ -40,9 +40,12 @@ function Navbar() {
         {/* Logo */}
         <NavLink
           to="/"
-          className="[font-family:var(--font-logo)] text-gray-800 dark:text-white/90 hover:text-gray-900 dark:hover:text-white logo cursor-pointer text-xl transition-colors"
+          className="flex items-center gap-2 hover:opacity-80 transition-opacity"
         >
-          AutoMarket
+          <img src="/src/assets/logo.png" alt="AutoMarket" className="w-10 h-10 rounded-full object-cover" />
+          <span className="[font-family:var(--font-logo)] text-gray-800 dark:text-white/90 text-xl">
+            AutoMarket
+          </span>
         </NavLink>
 
         {/* Desktop Menu */}
